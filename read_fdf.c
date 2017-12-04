@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*    read_fdf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 22:18:03 by rliu              #+#    #+#             */
-/*   Updated: 2017/12/02 22:29:12 by rliu             ###   ########.fr       */
+/*   Created: 2017/12/01 18:52:03 by rliu              #+#    #+#             */
+/*   Updated: 2017/12/01 18:53:10 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_error()
+int		row_length()
 {
 
 }
 
-int		main(int argc, char **argv)
+int		col_height()
 {
-	if (argc != 2)
-	{
-		write(1, "usage: ./fdf filename.fdf\n", 26);
-		return (0);
-	}
+	
+}
 
+int		read_fdf(int fd, char *argv)
+{
 
 }
