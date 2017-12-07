@@ -6,7 +6,7 @@
 #    By: rliu <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/01 17:39:16 by rliu              #+#    #+#              #
-#    Updated: 2017/12/01 18:51:12 by rliu             ###   ########.fr        #
+#    Updated: 2017/12/06 16:26:45 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT = Libft/libft.a
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 MINILIBXFLAGS = -L minilibx -lmlx -framework OpenGL -framework Appkit -I minilibx
-SRC = main.c
+SRC = main2.c
 
 all: $(NAME)
 

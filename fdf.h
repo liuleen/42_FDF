@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef "FDF_H"
-#define "FDF_H"
-#include <mlx.h>
+#ifndef FDF_H
+#define FDF_H
+//#include <mlx.h>
 #include <stdio.h>
 #include <fcntl.h>
 
