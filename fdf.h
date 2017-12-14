@@ -19,7 +19,8 @@
 typedef struct 		s_env
 {
 	t_map			map;
-	t_pixelpoint	**pixelcoords;
+	t_mlx			mlx;
+	t_pixelpoint	**pixel_point;
 
 }					t_env;
 
@@ -28,6 +29,7 @@ typedef struct 		s_map
 	int				**z;
 	int				height;
 	int				width;
+
 }					t_map;
 
 typedef struct 		s_pixelpoint
@@ -37,5 +39,17 @@ typedef struct 		s_pixelpoint
 	float			z;
 	
 }					t_pixelpoint;
+
+
+typedef struct		s_mlx
+{
+	void		*init;
+	void		*win;
+	void		*img;
+
+}					t_mlx;
+
+int					main(int argc, char **argv);
+int					read_fdf(int fd, char *argv);
 
 #endif

@@ -12,26 +12,22 @@
 
 #include "fdf.h"
 
-void	ft_error()
+static void		ft_error(void)
 {
-
+	write(1, "ERROR BITCH\n", 12);
+	exit(1);
 }
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
-	t_env	structception;
+	t_env	*base;
 
-	structception = malloc(sizeof(t_env))
-	if (argc != 2)
+	if (argc == 2)
 	{
-		write(1, "usage: ./fdf filename.fdf\n", 26);
-		return (0);
+		if((read_fdf(argv[1], base)) != 1)
+			ft_error();
 	}
 	else
-	{
-		if (read_fdf(argv[1], structception) == 0)
-			ft_error();
-		
-	}
+		write(1, "usage: ./fdf filename.fdf\n", 26);
 	return (0);
 }
