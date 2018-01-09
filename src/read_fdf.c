@@ -12,6 +12,13 @@
 
 #include "fdf.h"
 
+/*
+** Gets the number values in each line from the fdf file.
+** If there's an invalid character in the line, prints an error message.
+** Sometimes my fdf calaquea, asi que I added "read error" in the error message,
+** because my gnl is broken? or some shit like that... It happens very rarely.
+*/
+
 static int		row_length(char *str)
 {
 	int i;
@@ -39,6 +46,14 @@ static int		row_length(char *str)
 	return(len);
 }
 
+/*
+** Count and returns the number of lines (rows) that the file has.
+** This value is used to allocate the correct memory size
+** for the two dimensional array.
+** If the total values from every line is not equal to the other lines,
+** there is an error with the fdf file... lel.
+*/
+
 static int		col_height(char *str, t_env *base)
 {
 	int len;
@@ -48,15 +63,17 @@ static int		col_height(char *str, t_env *base)
 	}
 }
 
+/*
+** Read the fdf file, allocates in memory the correct size of the height
+** and width of the map.
+*/
+
 int			read_fdf(t_env *base, char *argv)
 {
 	int 	fd;
 	char 	*line;
 
 	if((fd = open(argv, O_RDONLY)) < 0)
-	{
-		write(1, "open error\n", 11);
 		return (0);
-	}
 	base->map.height = col_height(line, base);
 }
