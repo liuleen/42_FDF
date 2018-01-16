@@ -12,9 +12,16 @@
 
 #ifndef FDF_H
 #define FDF_H
-//#include <mlx.h>
+
+#include "../minilibx/mlx.h"
+#include "../libft/libft.h"
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+
+# define WIDTH 	()
+# define HEIGHT ()
 
 typedef struct 		s_env
 {
@@ -50,6 +57,6 @@ typedef struct		s_mlx
 }					t_mlx;
 
 int					main(int argc, char **argv);
-int					read_fdf(int fd, char *argv);
+int					read_fdf(t_env *base, int fd);
 
 #endif

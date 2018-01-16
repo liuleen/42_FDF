@@ -12,20 +12,28 @@
 
 #include "fdf.h"
 
-static void		ft_error(void)
+void			ft_error(char *str, int ret)
 {
-	write(1, "ERROR BITCH\n", 12);
-	exit(1);
+	ft_putendl(str);
+	exit(ret);
 }
 
 int				main(int argc, char **argv)
 {
 	t_env	*base;
+	int		fd;
 
+	if (!(base = (t_env *)malloc(sizeof(t_env))))
+		ft_error("Memory Allocation Error", 3);
 	if (argc == 2)
 	{
-		if((read_fdf(argv[1], base)) != 1)
-			ft_error();
+		if ((fd = open(argv[1], O_RDONLY)) < 1)
+			ft_error("Open Error", 4);
+		if((read_fdf(base, fd)) != 1)
+			ft_error("Read Error", 5);
+		if (close(fd) < 0)
+			ft_error("Close Error", 6);
+		emelex(base);
 	}
 	else
 		write(1, "usage: ./fdf filename.fdf\n", 26);

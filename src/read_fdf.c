@@ -54,7 +54,7 @@ static int		row_length(char *str)
 ** there is an error with the fdf file... lel.
 */
 
-static int		col_height(char *str, t_env *base)
+static int		col_height(char *str, t_env *base, int fd)
 {
 	int len;
 
@@ -68,12 +68,9 @@ static int		col_height(char *str, t_env *base)
 ** and width of the map.
 */
 
-int			read_fdf(t_env *base, char *argv)
+int			read_fdf(t_env *base, int fd)
 {
-	int 	fd;
 	char 	*line;
 
-	if((fd = open(argv, O_RDONLY)) < 0)
-		return (0);
-	base->map.height = col_height(line, base);
+	base->map.height = col_height(line, base, fd);
 }

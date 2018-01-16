@@ -17,16 +17,13 @@ FLAGS			= -Wall -Wextra -Werror -g
 MINILIBXFLAGS	= -L $(MINILIBX) -lmlx -framework OpenGL -framework Appkit
 
 SRC_DIR 		= ./src/
-# OBJ_DIR = ./obj/
 INC_DIR 		= ./includes/
 
 SRC_FILES 		= main.c read_fdf.c fdf.c
-# OBJ_FILES = $(SRC: .c=.o)
 
 LIBFT 			= libft/libft.a
 MINILIBX 		= minilibx/libmlx.a
 SRC 			= $(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ 			= $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
 all: $(NAME)
 
