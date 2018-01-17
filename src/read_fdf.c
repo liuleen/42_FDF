@@ -81,8 +81,12 @@ int			read_fdf(t_env *base, int fd)
 	i = 0;
 	y = 0;
 	base->map.height = col_height(base, fd);
+	if(!(base->map.z = (int **)malloc(sizeof(int *) * base->map.height)))
+		ft_error("Allocation error", 7);
 	while((y < base->map.height) && (get_next_line(fd, &line) == 1))
 	{
+		if(!(base->map.z[y] = (int *)malloc(sizeof(int) * base->map.width)))
+			ft_error("Allocation error", 7);
 		x = 0;
 		array = ft_strsplit(line, ' ');
 		while((x < base->map.width) && (array[i]))
