@@ -15,13 +15,15 @@
 
 #include "../minilibx/mlx.h"
 #include "../libft/libft.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <math.h>
 
-# define WIDTH 	()
-# define HEIGHT ()
+# define WIDTH 	(720)
+# define HEIGHT (720)
 
 typedef struct 		s_env
 {
@@ -58,5 +60,6 @@ typedef struct		s_mlx
 
 int					main(int argc, char **argv);
 int					read_fdf(t_env *base, int fd);
+void				ft_error(char *str, int ret);
 
 #endif

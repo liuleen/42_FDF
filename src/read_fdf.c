@@ -13,23 +13,21 @@
 #include "fdf.h"
 
 /*
-** Gets the number values in each line from the fdf file.
-** If there's an invalid character in the line, prints an error message.
-** Sometimes my fdf calaquea, asi que I added "read error" in the error message,
-** because my gnl is broken? or some shit like that... It happens very rarely.
+** Gets the len of each line in the file and checks for invalid files
+** such as files containing invalid characters.
 */
 
 static int		row_length(char *str)
 {
-	int i;
-	int len;
+	int 	i;
+	int 	len;
 
 	i = 0;
 	len = 0;
 	while(str[i])
 	{
-		if(str[i] == '\0')
-			break ;
+		// if(str[i] == '\0')
+		// 	break ;
 		if(ft_isdigit(str[i]))
 		{
 			len++;
@@ -37,40 +35,64 @@ static int		row_length(char *str)
 				i++;
 		}
 		else if(str[i] != ' ' && str[i] != '-')
-		{
-			write(1, "ERROR\n", 6);
-			return(0);
-		}
+			ft_error("Invalid characters", 6);
 		i++;
 	}
 	return(len);
 }
 
 /*
-** Count and returns the number of lines (rows) that the file has.
-** This value is used to allocate the correct memory size
-** for the two dimensional array.
-** If the total values from every line is not equal to the other lines,
-** there is an error with the fdf file... lel.
+** Gets the number of rows in the file to store and use for map/2d array
 */
 
-static int		col_height(char *str, t_env *base, int fd)
+static int		col_height(t_env *base, int fd)
 {
-	int len;
+	int 	len;
+	int		height;
+	int 	width;
+	char 	*line;
 
+	width = 0;
+	height = 0;
 	while(get_next_line(fd, &line) == 1)
 	{
+		len = row_length(line);
+		if (len > width)
+			width = len;
+		height++;
+		free(line);
 	}
+	base->map.width = width;
+	return (height);
 }
 
 /*
-** Read the fdf file, allocates in memory the correct size of the height
-** and width of the map.
+** Read the fdf file
 */
 
 int			read_fdf(t_env *base, int fd)
 {
 	char 	*line;
+	char 	**array;
+	int		i;
+	int		x;
+	int		y;
 
-	base->map.height = col_height(line, base, fd);
+	i = 0;
+	y = 0;
+	base->map.height = col_height(base, fd);
+	while((y < base->map.height) && (get_next_line(fd, &line) == 1))
+	{
+		x = 0;
+		array = ft_strsplit(line, ' ');
+		while((x < base->map.width) && (array[i]))
+		{
+			base->map.z[y][x] = ft_atoi(array[i]);
+			i++;
+			x++;
+		}
+		//free(array);
+		y++;
+		free(line);
+	}
 }

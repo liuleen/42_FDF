@@ -33,7 +33,7 @@ int				main(int argc, char **argv)
 			ft_error("Read Error", 5);
 		if (close(fd) < 0)
 			ft_error("Close Error", 6);
-		emelex(base);
+		//emelex(base);
 	}
 	else
 		write(1, "usage: ./fdf filename.fdf\n", 26);
