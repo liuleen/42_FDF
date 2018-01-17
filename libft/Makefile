@@ -80,7 +80,8 @@ SRC = 	ft_strlen.c \
 		ft_strjoin_free_l.c \
 		ft_strjoin_free_lr.c \
 		ft_strjoin_free_r.c \
-		ft_strrev.c	
+		ft_strrev.c \
+		get_next_line.c	
 
 OBJ = ${SRC:c=o}
 

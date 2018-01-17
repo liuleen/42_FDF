@@ -12,8 +12,11 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define BUFF_SIZE 42
 # include <string.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
 # include <stdlib.h>
 
 void				*ft_memset(void *b, int c, size_t len);
@@ -92,5 +95,6 @@ char				*ft_strjoin_free_l(char *s1, char const *s2);
 char				*ft_strjoin_free_lr(char *s1, char *s2);
 char				*ft_strjoin_free_r(char const *s1, char *s2);
 char				*ft_strrev(char *str);
+int                 get_next_line(const int fd, char **line);
 
 #endif
