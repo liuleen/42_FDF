@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
 /*
 ** Gets the len of each line in the file and checks for invalid files
@@ -20,25 +20,28 @@
 static int		row_length(char *str)
 {
 	int 	i;
-	int 	len;
+	int 	length;
 
 	i = 0;
-	len = 0;
+	length = 0;
 	while(str[i])
 	{
 		// if(str[i] == '\0')
 		// 	break ;
 		if(ft_isdigit(str[i]))
 		{
-			len++;
+			length++;
 			while(ft_isdigit(str[i]))
 				i++;
 		}
-		else if(str[i] != ' ' && str[i] != '-')
+		else if(str[i] == ' ')
+			i++;
+		else if(str[i] == '-')
+			i++;
+		else
 			ft_error("Invalid characters", 6);
-		i++;
 	}
-	return(len);
+	return(length);
 }
 
 /*
@@ -47,7 +50,7 @@ static int		row_length(char *str)
 
 static int		col_height(t_env *base, int fd)
 {
-	int 	len;
+	int 	length;
 	int		height;
 	int 	width;
 	char 	*line;
@@ -56,12 +59,14 @@ static int		col_height(t_env *base, int fd)
 	height = 0;
 	while(get_next_line(fd, &line) == 1)
 	{
-		len = row_length(line);
-		if (len > width)
-			width = len;
+		length = row_length(line);
+		if (length > width)
+			width = length;
 		height++;
 		free(line);
 	}
+	if (close(fd) < 0)
+		ft_error("Close Error!!", 6);
 	base->map.width = width;
 	return (height);
 }
@@ -70,33 +75,38 @@ static int		col_height(t_env *base, int fd)
 ** Read the fdf file
 */
 
-int			read_fdf(t_env *base, int fd)
+int			read_fdf(t_env *base, int fd, char *line, char *argv)
 {
-	char 	*line;
 	char 	**array;
 	int		i;
 	int		x;
 	int		y;
+	int		value;
 
 	i = 0;
 	y = 0;
 	base->map.height = col_height(base, fd);
 	if(!(base->map.z = (int **)malloc(sizeof(int *) * base->map.height)))
-		ft_error("Allocation error", 7);
+		ft_error("Allocation error", 3);
+	if ((fd = open(argv, O_RDONLY)) < 1)
+		ft_error("Open Error", 4);
 	while((y < base->map.height) && (get_next_line(fd, &line) == 1))
 	{
 		if(!(base->map.z[y] = (int *)malloc(sizeof(int) * base->map.width)))
-			ft_error("Allocation error", 7);
+			ft_error("Allocation error", 3);
 		x = 0;
 		array = ft_strsplit(line, ' ');
 		while((x < base->map.width) && (array[i]))
 		{
-			base->map.z[y][x] = ft_atoi(array[i]);
+			value = ft_atoi(array[i]);
+			base->map.z[y][x] = value;
+			printf("map.z[%i][%i]: %i", y, x, base->map.z[y][x]);
 			i++;
 			x++;
 		}
-		//free(array);
 		y++;
 		free(line);
+		free(array);
 	}
+	return (1);
 }

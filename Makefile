@@ -21,11 +21,13 @@ SRC_DIR 		= ./src/
 INC_DIR 		= ./includes/
 
 SRC_FILES 		= main.c read_fdf.c 
-# fdf.c
+# fdf.c mlx.c
+INC_FILES		= fdf.h
 
 LIBFT 			= ./libft
 MINILIBX 		= ./minilibx
 SRC 			= $(addprefix $(SRC_DIR), $(SRC_FILES))
+INC				= $(addprefix $(INC_DIR), $(INC_FILES))
 
 all: $(NAME)
 
@@ -33,7 +35,7 @@ all: $(NAME)
 $(NAME):
 	@make -C $(LIBFT)
 	@make -C $(MINILIBX)
-	@gcc $(FLAGS) $(MINILIBXFLAGS) $(SRC) $(LIBFT)/libft.a $(MINILIBX)/libmlx.a -o $(NAME)
+	@gcc $(FLAGS) $(MINILIBXFLAGS) $(SRC) $(INC) $(LIBFT)/libft.a $(MINILIBX)/libmlx.a -o $(NAME)
 	@echo "\033[32mCompiled Executable ^.^\033[0m"
 
 clean:
