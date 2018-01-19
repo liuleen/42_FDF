@@ -102,7 +102,7 @@ int			read_fdf(t_env *base, int fd, char *line, char *argv)
 			write(1, "hi\n", 3);
 			value = ft_atoi(array[i++]);
 			base->map.z[y][x] = value;
-			//printf("map.z[%i][%i]: %i", y, x, base->map.z[y][x]);
+			printf("map.z[%i][%i]: %i", y, x, base->map.z[y][x]);
 			x++;
 		}
 		y++;

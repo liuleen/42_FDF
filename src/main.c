@@ -34,17 +34,6 @@ int				main(int argc, char **argv)
 		if((read_fdf(base, fd, line, argv[1])) != 1)
 			ft_error("Read Error", 5);
 		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
-		int j = 0;
-		int h = 0;
-		while(j < base->map.height)
-		{
-			while(h < base->map.width)
-			{
-				printf("map.z[%i][%i]: %i", j, h, base->map.z[j][h]);
-				h++;
-			}
-			j++;
-		}
 		if (close(fd) < 0)
 			ft_error("Close Error!!", 6);
 		//mlx(base);
