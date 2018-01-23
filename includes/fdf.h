@@ -32,17 +32,17 @@ typedef struct 		s_map
 	int				width;
 	int 			y1;
 	int 			y2;
-	int 			x2;
 	int 			x1;
+	int 			x2;
 }					t_map;
 
 typedef struct 		s_pixelpoint
 {
-	float			x;
-	float			y;
-	float			z;
+	double			x;
+	double			y;
+	double			z;
 }					t_pixelpoint;
-
+ 
 
 typedef struct		s_mlx
 {

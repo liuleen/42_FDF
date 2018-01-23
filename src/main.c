@@ -18,6 +18,31 @@ void			ft_error(char *str, int ret)
 	exit(ret);
 }
 
+static int		check_fdf(char *str)
+{
+	int i;
+	int j;
+	char *fdf;
+
+	i = 0;
+	j = 0;
+	fdf = "fdf";
+	while(str[i])
+		i++;
+	i--;
+	while(fdf[j])
+	{
+		if(str[i] == fdf[j])
+		{
+			i--;
+			j++;
+		}
+		else
+			return(0);
+	}
+	return(1);
+}			
+
 int				main(int argc, char **argv)
 {
 	t_env	*base;
@@ -29,6 +54,8 @@ int				main(int argc, char **argv)
 		ft_error("Allocation Error", 3);
 	if (argc == 2)
 	{
+		if (check_fdf(argv[1]) != 1)
+			ft_error("Invalid file", 4)
 		if ((fd = open(argv[1], O_RDONLY)) < 1)
 			ft_error("Open Error", 4);
 		if((read_fdf(base, fd, line, argv[1])) != 1)
