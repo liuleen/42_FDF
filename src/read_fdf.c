@@ -26,8 +26,6 @@ static int		row_length(char *str)
 	length = 0;
 	while(str[i])
 	{
-		// if(str[i] == '\0')
-		// 	break ;
 		if(ft_isdigit(str[i]))
 		{
 			length++;
@@ -70,10 +68,6 @@ static int		col_height(t_env *base, int fd)
 	base->map.width = width;
 	return (height);
 }
-
-/*
-** Read the fdf file
-*/
 
 int			read_fdf(t_env *base, int fd, char *line, char *argv)
 {
