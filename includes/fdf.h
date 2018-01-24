@@ -42,7 +42,6 @@ typedef struct 		s_pixelpoint
 	double			y;
 	double			z;
 }					t_pixelpoint;
- 
 
 typedef struct		s_mlx
 {
@@ -51,6 +50,7 @@ typedef struct		s_mlx
 	void			*win;
 	void			*img;
 }					t_mlx;
+
 
 typedef struct 		s_env
 {
@@ -62,6 +62,7 @@ typedef struct 		s_env
 void				mlx(t_env *base);
 int					read_fdf(t_env *base, int fd, char *line, char *argv);
 void				ft_error(char *str, int ret);
+int					create_fdf(t_env *base);
 int					main(int argc, char **argv);
 
 #endif

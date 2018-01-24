@@ -55,7 +55,7 @@ int				main(int argc, char **argv)
 	if (argc == 2)
 	{
 		if (check_fdf(argv[1]) != 1)
-			ft_error("Invalid file", 4)
+			ft_error("Invalid file", 4);
 		if ((fd = open(argv[1], O_RDONLY)) < 1)
 			ft_error("Open Error", 4);
 		if((read_fdf(base, fd, line, argv[1])) != 1)
@@ -63,7 +63,7 @@ int				main(int argc, char **argv)
 		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
 		if (close(fd) < 0)
 			ft_error("Close Error!!", 6);
-		//mlx(base);
+		mlx(base);
 	}
 	else
 		write(1, "usage: ./fdf filename.fdf\n", 26);
