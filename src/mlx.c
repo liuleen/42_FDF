@@ -1,5 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/28 19:41:42 by rliu              #+#    #+#             */
+/*   Updated: 2018/01/28 19:41:47 by rliu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void		environment(t_en *env)
+{
+	env->fdfimage.height = 0;
+	env->fdfimage.width = 0;
+	env->fdfimage.spacing = find_spacing(*env);
+	env->fdfimage.cart_points = plotting_points(*env, env->map);
+}
 
 int		my_key_funct(int keycode)  /*you need to pass mlx and win here, figure out how */
 {
@@ -16,7 +35,7 @@ void		mlx(t_env *base)
 	/* mlx init returns a pointer which serves identifier for the conneciton to the graphic server
 	 * allow other functions to use the same conncetion to the server
 	 * */
-	//reset_map(base);
+	environment(base);
 	base->mlx.mlx = mlx_init();
 
 	/* mlx_new_window creates a new window using the sizes in the parameters,

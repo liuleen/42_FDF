@@ -28,6 +28,16 @@
 # define RED 0xff0000
 # define YELLOW 0xffff00
 # define WHITE 0xffffff
+# define ESCAPE 36
+# define UP 126
+# define DOWN 125
+# define RIGHT 124
+# define LEFT 123
+
+typedef struct  	s_fdfimage
+{
+	
+}					t_fdfimage ;
 
 typedef struct 		s_map
 {
@@ -56,8 +66,6 @@ typedef struct		s_mlx
 	void			*init;
 	void			*win;
 	void			*img;
-	int 			win_height;
-	int 			win_width;
 }					t_mlx;
 
 
