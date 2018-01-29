@@ -55,14 +55,14 @@ int				main(int argc, char **argv)
 	if (argc == 2)
 	{
 		if (check_fdf(argv[1]) != 1)
-			ft_error("Invalid file", 4);
+			ft_error("Oh no, you entered an invalid file", 4);
 		if ((fd = open(argv[1], O_RDONLY)) < 1)
-			ft_error("Open Error", 4);
+			ft_error("This doesn't happen often but...open error", 4);
 		if((read_fdf(base, fd, line, argv[1])) != 1)
-			ft_error("Read Error", 5);
+			ft_error("Try again, read error", 5);
 		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
 		if (close(fd) < 0)
-			ft_error("Close Error!!", 6);
+			ft_error("LOL you got a close error!!", 6);
 		mlx(base);
 	}
 	else

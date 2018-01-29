@@ -24,6 +24,10 @@
 
 # define WIDTH 	(720)
 # define HEIGHT (720)
+# define BLUE 0x0000ff
+# define RED 0xff0000
+# define YELLOW 0xffff00
+# define WHITE 0xffffff
 
 typedef struct 		s_map
 {
@@ -34,7 +38,10 @@ typedef struct 		s_map
 	int 			y2;
 	int 			x1;
 	int 			x2;
+	int 			pixel_gap;
 }					t_map;
+
+//CARTESIAN POINTS
 
 typedef struct 		s_pixelpoint
 {
@@ -49,6 +56,8 @@ typedef struct		s_mlx
 	void			*init;
 	void			*win;
 	void			*img;
+	int 			win_height;
+	int 			win_width;
 }					t_mlx;
 
 

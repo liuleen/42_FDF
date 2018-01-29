@@ -24,7 +24,7 @@ void		mlx(t_env *base)
 	 * */
 	base->mlx.win = mlx_new_window(base->mlx.mlx, WIDTH, HEIGHT, "FDF");
 	mlx_key_hook(base->mlx.win, my_key_funct, base->mlx.mlx);
-	create_fdf(base);
+	//create_fdf(base);
 	//mlx_hook(base->mlx.win, 2, 3, my_key_funct, base);
 	//mlx_loop_hook(base->mlx.mlx, create_fdf, base);
 	/* loops deals with events, takes the connection identifier as parameter,
