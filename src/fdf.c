@@ -12,7 +12,12 @@
 
 #include "../includes/fdf.h"
 
-void		draw_pixel()
+void		illuminate_pixel()
+{
+	
+}
+
+void		bresenham()
 {
 	
 }

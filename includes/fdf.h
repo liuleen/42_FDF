@@ -52,6 +52,13 @@ typedef struct 		s_map
 }					t_map;
 
 //CARTESIAN POINTS
+typedef struct  	s_bresenham
+{
+	double			delta_x;
+	double			delta_y;
+	double			slope;
+	double	
+}					t_bresenham;
 
 typedef struct 		s_pixelpoint
 {
