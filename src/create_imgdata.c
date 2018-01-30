@@ -1,4 +1,4 @@
-*--*-------------*--**/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   create_imgdata.c                                   :+:      :+:    :+:   */
@@ -12,21 +12,35 @@
 
 #include "../includes/fdf.h"
 
-t_pixelpoint		**pixelpoints(t_env *base)
-{
-	int				left;
-	int				right;
-	t_pixelpoint	**cart_points;
+/* void		environment(t_env *base)
+ {
+	base->fdfimage.height = 0;
+ 	base->fdfimage.width = 0;
+ 	base->fdfimage.spacing = find_spacing(*env);
+ 	base->fdfimage.cart_points = plotting_points(*env, env->map);
+ }
+ */
 
-	left = -1;
-	while (++left < base->map.height)
+t_pxlpt		**pxlpts(t_env *base)
+{
+	int				l;
+	int				r;
+	t_pxlpt			**cart_pts;
+
+	//cart_pts[l][r].z = 
+	cart_pts = (t_pxlpt **)malloc(sizeof(t_pxlpt *) * base->map.height);
+	l = -1;
+	while (++l < base->map.height)
 	{
-		right = -1;
-		while (++right < base->map.width)
+		cart_pts[l] = (t_pxlpt *)malloc(sizeof(t_pxlpt) * base->map.width);
+		r = -1;
+		while (++r < base->map.width)
 		{
-			cart_points[left][right].x = left;
-			cart_points[left][right].y = right;
+			cart_pts[l][r].x = l; //multiply by rotational matrix
+			cart_pts[l][r].y = r; //multiply by roational matrix
+			printf("The x plot points are: %f\n", cart_pts[l][r].x);
+			printf("The y plot points are: %f\n", cart_pts[l][r].y);
 		}
 	}
-	return (cart_points);
+	return (cart_pts);
 }

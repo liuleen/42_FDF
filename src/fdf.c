@@ -34,5 +34,16 @@ void		vertical()
 
 int			fdf(t_env *base)
 {
+	int 	y;
+	int 	x;
 
+	y = -1;
+	while (++y < base->map.height)
+	{
+		x = -1;
+		while (++x < base->map.width)
+		{
+			
+		}
+	}
 }

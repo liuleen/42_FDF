@@ -12,15 +12,6 @@
 
 #include "../includes/fdf.h"
 
-/* void		environment(t_env *base)
- {
-	base->fdfimage.height = 0;
- 	base->fdfimage.width = 0;
- 	base->fdfimage.spacing = find_spacing(*env);
- 	base->fdfimage.cart_points = plotting_points(*env, env->map);
- }
- */
-
 int		reg_key_events(int keycode, t_env *base)  
 {
 	printf("key event %d\n", keycode); 
@@ -30,11 +21,10 @@ int		reg_key_events(int keycode, t_env *base)
 		mlx_destroy_window(base->mlx.mlx, base->mlx.win);
 		exit(0);
 	}
-	else if (keycode == UP)
-	{
-		base->pixelpoint.x -= 50;
-		base->pixelpoint.y -= 50;
-	}
+	// else if (keycode == UP)
+	// {
+
+	// }
 	// else if (keycode == DOWN)
 	// else if (keycode == LEFT)
 	// else if (keycode == RIGHT)
@@ -55,11 +45,12 @@ void		mlx(t_env *base)
 	 *	environment(base);	
 	 */
 
-	base->pixelpoint.x = 350;
-	base->pixelpoint.y = 350;	
+	t_pxlpt		**cartpts;
+
+	cartpts = pxlpts(base);
 	base->mlx.mlx = mlx_init();
 	base->mlx.win = mlx_new_window(base->mlx.mlx, WIDTH, HEIGHT, "FDF");
-	mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->pixelpoint.x, base->pixelpoint.y, 0xff0000);
+	mlx_pixel_put(base->mlx.mlx, base->mlx.win, 350, 350, 0xff0000);
 	mlx_key_hook(base->mlx.win, reg_key_events, base->mlx.mlx);
 	//create_fdf(base);
 	/*	mlx_hook(base->mlx.win, 2, 3, cool_key_events, base);
