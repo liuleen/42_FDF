@@ -36,3 +36,7 @@ int			fdf(t_env *base)
 {
 
 }
+
+//plot on window w/key bindingns
+//convert z to a 2d array of points on the window <-- allows offset, --> double x and y
+//youtube bresenham's algorithm, use two random points
