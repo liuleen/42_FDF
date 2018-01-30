@@ -82,11 +82,12 @@ typedef struct 		s_env
 	t_bresenham		bresen;
 }					t_env;
 
+t_pxlpt				**pxlpts(t_env *base);
 void				mlx(t_env *base);
 int					read_fdf(t_env *base, int fd, char *line, char *argv);
 void				ft_error(char *str, int ret);
 int					create_fdf(t_env *base);
-t_pxlpt				**pxlpts(t_env *base);
 int					main(int argc, char **argv);
+int 				get_next_line(const int fd, char **line);
 
 #endif
