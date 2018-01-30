@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:52:03 by rliu              #+#    #+#             */
-/*   Updated: 2018/01/28 19:41:59 by rliu             ###   ########.fr       */
+/*   Updated: 2018/01/29 16:01:35 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,27 @@
 
 static int		row_length(char *str)
 {
-	int 	i;
-	int 	length;
+	int		i;
+	int		length;
 
 	i = 0;
 	length = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(ft_isdigit(str[i]))
+		if (ft_isdigit(str[i]))
 		{
 			length++;
-			while(ft_isdigit(str[i]))
+			while (ft_isdigit(str[i]))
 				i++;
 		}
-		else if(str[i] == ' ')
+		else if (str[i] == ' ')
 			i++;
-		else if(str[i] == '-')
+		else if (str[i] == '-')
 			i++;
 		else
 			ft_error("Invalid characters", 6);
 	}
-	return(length);
+	return (length);
 }
 
 /*
@@ -48,14 +48,14 @@ static int		row_length(char *str)
 
 static int		col_height(t_env *base, int fd)
 {
-	int 	length;
+	int		length;
 	int		height;
-	int 	width;
-	char 	*line;
+	int		width;
+	char	*line;
 
 	width = 0;
 	height = 0;
-	while(get_next_line(fd, &line) == 1)
+	while (get_next_line(fd, &line) == 1)
 	{
 		length = row_length(line);
 		if (length > width)
@@ -69,9 +69,9 @@ static int		col_height(t_env *base, int fd)
 	return (height);
 }
 
-int			read_fdf(t_env *base, int fd, char *line, char *argv)
+int				read_fdf(t_env *base, int fd, char *line, char *argv)
 {
-	char 	**array;
+	char	**array;
 	int		i;
 	int		x;
 	int		y;
@@ -80,18 +80,18 @@ int			read_fdf(t_env *base, int fd, char *line, char *argv)
 	i = 0;
 	y = 0;
 	base->map.height = col_height(base, fd);
-	if(!(base->map.z = (int **)malloc(sizeof(int *) * base->map.height)))
+	if (!(base->map.z = (int **)malloc(sizeof(int *) * base->map.height)))
 		ft_error("2D array; Allocation error", 3);
 	if ((fd = open(argv, O_RDONLY)) < 1)
 		ft_error("This is the second open attempt, Open Error", 4);
-	while((y < base->map.height) && (get_next_line(fd, &line) == 1))
+	while ((y < base->map.height) && (get_next_line(fd, &line) == 1))
 	{
-		if(!(base->map.z[y] = (int *)malloc(sizeof(int) * base->map.width)))
+		if (!(base->map.z[y] = (int *)malloc(sizeof(int) * base->map.width)))
 			ft_error("Allocation error", 3);
 		x = 0;
 		i = 0;
 		array = ft_strsplit(line, ' ');
-		while((x < base->map.width) && (array[i]))
+		while ((x < base->map.width) && (array[i]))
 		{
 			value = ft_atoi(array[i++]);
 			base->map.z[y][x] = value;

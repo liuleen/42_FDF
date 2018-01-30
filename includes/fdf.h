@@ -22,21 +22,23 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WIDTH 	(720)
-# define HEIGHT (720)
+# define WIDTH 	(1420)
+# define HEIGHT (1420)
 # define BLUE 0x0000ff
 # define RED 0xff0000
 # define YELLOW 0xffff00
 # define WHITE 0xffffff
-# define ESCAPE 36
+# define ESCAPE 53
 # define UP 126
 # define DOWN 125
 # define RIGHT 124
 # define LEFT 123
+# define ZOOMIN 24
+# define ZOOMOUT 23
 
 typedef struct  	s_fdfimage
 {
-	
+	int 			pixel_gap;
 }					t_fdfimage ;
 
 typedef struct 		s_map
@@ -48,7 +50,6 @@ typedef struct 		s_map
 	int 			y2;
 	int 			x1;
 	int 			x2;
-	int 			pixel_gap;
 }					t_map;
 
 //CARTESIAN POINTS
@@ -57,7 +58,6 @@ typedef struct  	s_bresenham
 	double			delta_x;
 	double			delta_y;
 	double			slope;
-	double	
 }					t_bresenham;
 
 typedef struct 		s_pixelpoint
@@ -81,6 +81,8 @@ typedef struct 		s_env
 	t_map			map;
 	t_mlx			mlx;
 	t_pixelpoint	**pixel_point;
+	t_bresenham		bresen;
+	t_fdfimage		fdfimage;
 }					t_env;
 
 void				mlx(t_env *base);
