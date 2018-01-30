@@ -22,8 +22,8 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WIDTH 	(1420)
-# define HEIGHT (1420)
+# define WIDTH 	(700)
+# define HEIGHT (700)
 # define BLUE 0x0000ff
 # define RED 0xff0000
 # define YELLOW 0xffff00
@@ -52,7 +52,6 @@ typedef struct 		s_map
 	int 			x2;
 }					t_map;
 
-//CARTESIAN POINTS
 typedef struct  	s_bresenham
 {
 	double			delta_x;
@@ -60,6 +59,7 @@ typedef struct  	s_bresenham
 	double			slope;
 }					t_bresenham;
 
+//CARTESIAN POINTS
 typedef struct 		s_pixelpoint
 {
 	double			x;
@@ -80,7 +80,7 @@ typedef struct 		s_env
 {
 	t_map			map;
 	t_mlx			mlx;
-	t_pixelpoint	**pixel_point;
+	t_pixelpoint	pixelpoint;
 	t_bresenham		bresen;
 	t_fdfimage		fdfimage;
 }					t_env;
