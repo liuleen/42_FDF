@@ -12,15 +12,6 @@
 
 #include "../includes/fdf.h"
 
-/* void		environment(t_env *base)
- {
-	base->fdfimage.height = 0;
- 	base->fdfimage.width = 0;
- 	base->fdfimage.spacing = find_spacing(*env);
- 	base->fdfimage.cart_points = plotting_points(*env, env->map);
- }
- */
-
 t_pxlpt		**pxlpts(t_env *base)
 {
 	int				l;
@@ -42,5 +33,19 @@ t_pxlpt		**pxlpts(t_env *base)
 			printf("The y plot points are: %f\n", cart_pts[l][r].y);
 		}
 	}
+	//free t_pxlpt;
 	return (cart_pts);
 }
+
+/* void		environment(t_env *base)
+ {
+ 	base->map.height = 0;
+ 	base->map.width = 0;
+ 	
+ 	base->pxlpt = pxlpts(base);
+ 	base->bresenham.offset_x = (WIDTH / 2) - base->map.width;
+	base->bresenham.offset_y = (HEIGHT / 2) - base->map.height;
+	base->map.pixel_gap = base->map.width > base->map.height ? \
+		WIDTH / base->map.width : HEIGHT / base->map.height;
+ }
+ */

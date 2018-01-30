@@ -17,22 +17,30 @@ void		illuminate_pixel()
 	
 }
 
-void		bresenham()
+void		bresenham(t_env	*base)
 {
 	
 }
 
-void		horizontal()
+void		get_horizontal(t_env *base)
 {
-
+	// base->map.x1 = 
+	// base->map.y1 = 
+	// base->map.x2 = 
+	// base->map.y2 = 
+	// bresenham(base);
 }
 
-void		vertical()
+void		get_vertical(t_env *base)
 {
-
+	// base->map.x1 = 
+	// base->map.y1 = 
+	// base->map.x2 = 
+	// base->map.y2 = 
+	// bresenham(base);
 }
 
-int			fdf(t_env *base)
+void			fdf(t_env *base, t_pxlpt)
 {
 	int 	y;
 	int 	x;
@@ -43,11 +51,10 @@ int			fdf(t_env *base)
 		x = -1;
 		while (++x < base->map.width)
 		{
-			
+			if (x + 1 < base->map.width)
+				get_horizontal(base);
+			if (y + 1 < base->map.height)
+				get_vertical(base);			
 		}
 	}
 }
-
-//plot on window w/key bindingns
-//convert z to a 2d array of points on the window <-- allows offset, --> double x and y
-//youtube bresenham's algorithm, use two random points

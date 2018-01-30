@@ -36,11 +36,6 @@
 # define ZOOMIN 24
 # define ZOOMOUT 23
 
-typedef struct  	s_fdfimage
-{
-	int 			pixel_gap;
-}					t_fdfimage ;
-
 typedef struct 		s_map
 {
 	int				**z;
@@ -50,6 +45,7 @@ typedef struct 		s_map
 	int 			y2;
 	int 			x1;
 	int 			x2;
+	int 			pixel_gap;
 }					t_map;
 
 typedef struct  	s_bresenham
@@ -57,6 +53,8 @@ typedef struct  	s_bresenham
 	double			delta_x;
 	double			delta_y;
 	double			slope;
+	int 			offset_x;
+	int 			offset_y;
 }					t_bresenham;
 
 //CARTESIAN POINTS
@@ -82,7 +80,6 @@ typedef struct 		s_env
 	t_mlx			mlx;
 	t_pxlpt			**pxlpt;
 	t_bresenham		bresen;
-	t_fdfimage		fdfimage;
 }					t_env;
 
 void				mlx(t_env *base);
