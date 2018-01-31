@@ -47,10 +47,14 @@ void		mlx(t_env *base)
 
 	t_pxlpt		**cartpts;
 
-	cartpts = pxlpts(base);
 	base->mlx.mlx = mlx_init();
 	base->mlx.win = mlx_new_window(base->mlx.mlx, WIDTH, HEIGHT, "FDF");
-	mlx_pixel_put(base->mlx.mlx, base->mlx.win, 350, 350, 0xff0000);
+	//mlx_pixel_put(base->mlx.mlx, base->mlx.win, 350, 350, 0xff0000);
+	cartpts = pxlpts(base);
+	//loop and plot all the points 
+	//transform theta --> radians (radians = degrees × π / 180°) --> key event
+				//M_PI == pi
+
 	//fdf_draw(base, cartpts);
 	mlx_key_hook(base->mlx.win, reg_key_events, base->mlx.mlx);
 	//create_fdf(base);
