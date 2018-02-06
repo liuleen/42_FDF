@@ -22,7 +22,7 @@ void		bresenham(t_env	*base)
 	
 }
 
-void		get_horizontal(t_env *base)
+void		draw_horizontal(t_env *base)
 {
 	// base->map.x1 = 
 	// base->map.y1 = 
@@ -31,7 +31,7 @@ void		get_horizontal(t_env *base)
 	// bresenham(base);
 }
 
-void		get_vertical(t_env *base)
+void		draw_vertical(t_env *base)
 {
 	// base->map.x1 = 
 	// base->map.y1 = 
@@ -52,9 +52,9 @@ void			fdf(t_env *base, t_pxlpt)
 		while (++x < base->map.width)
 		{
 			if (x + 1 < base->map.width)
-				get_horizontal(base);
+				draw_horizontal(base);
 			if (y + 1 < base->map.height)
-				get_vertical(base);			
+				draw_vertical(base);			
 		}
 	}
 }

@@ -42,8 +42,8 @@ $(NAME):
 	@echo "\033[32mCompiled Executable ^.^\033[0m"
 
 clean:
-	@make -C (LIBFT_DIR) clean
-	@make -C (MINILIBX_DIR) clean
+	@make -C $(LIBFT_DIR) clean
+	@make -C $(MINILIBX_DIR) clean
 	@echo "\033[32mRemoved Object Files\033[0m"
 	
 fclean:
