@@ -54,6 +54,7 @@ int				main(int argc, char **argv)
 		ft_error("Allocation Error", 3);
 	if (argc == 2)
 	{
+		environment(base);
 		if (check_fdf(argv[1]) != 1)
 			ft_error("Oh no, you entered an invalid file", 4);
 		if ((fd = open(argv[1], O_RDONLY)) < 1)
@@ -63,7 +64,6 @@ int				main(int argc, char **argv)
 		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
 		if (close(fd) < 0)
 			ft_error("You got a close error!!", 6);
-		//environment(base);
 		mlx(base);
 	}
 	else

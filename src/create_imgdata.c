@@ -18,7 +18,6 @@ t_pxlpt		**pxlpts(t_env *base)
 	int				r;
 	t_pxlpt			**cart_pts;
 
-
 	base->map.pixel_gap = base->map.width > base->map.height ? \
 		(WIDTH / base->map.width) * .75 : (HEIGHT / base->map.height) * .75;
 	cart_pts = (t_pxlpt **)malloc(sizeof(t_pxlpt *) * base->map.height);
@@ -29,7 +28,7 @@ t_pxlpt		**pxlpts(t_env *base)
 		r = -1;
 		while (++r < base->map.width)
 		{
-			cart_pts[l][r].y = l; //multiply by rotational matrix
+			cart_pts[l][r].y = l ; //multiply by rotational matrix
 			cart_pts[l][r].x = r; //multiply by roational matrix
 			cart_pts[l][r].z = base->map.z[l][r];
 			printf("The x plot points are: %f\n", cart_pts[l][r].x);
@@ -38,9 +37,9 @@ t_pxlpt		**pxlpts(t_env *base)
 			cart_pts[l][r].x *= base->map.pixel_gap;
 			cart_pts[l][r].y *= base->map.pixel_gap;
 			if(base->map.z[l][r] > 0)
-				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x, cart_pts[l][r].y, 0x0000ff);
+				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x + 150, cart_pts[l][r].y + 200, WHITE);
 			else
-				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x, cart_pts[l][r].y, 0xff0000);
+				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x + 150, cart_pts[l][r].y + 200, WHITE);
 		}
 	}
 	//free t_pxlpt;
@@ -53,15 +52,13 @@ t_pxlpt		**pxlpts(t_env *base)
  	base->map.width = 0;
  	base->map.z = NULL;
 
- 	base->pxlpt = pxlpts(base);
- // 	base->bresen.center_x = (WIDTH / 2) - base->map.width;
-	// base->bresen.center_y = (HEIGHT / 2) - base->map.height;
-	// base->map.pixel_gap = base->map.width > base->map.height ? \
-	// 	WIDTH / base->map.width : HEIGHT / base->map.height;
 	// base->rotate.x = 0;
 	// base->rotate.y = 0;
 	// base->rotate.z = 0;
-	base->bresen.center_x = WIDTH / 2;
-	base->bresen.center_y = HEIGHT / 2;
+	base->bresen.center_x = HEIGHT / 4;
+	base->bresen.center_y = WIDTH / 4;
+
+	printf("center x: %f\n", base->bresen.center_x);
+	printf("center y: %f\n", base->bresen.center_y);
  }
  

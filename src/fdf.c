@@ -15,35 +15,46 @@
 
 // void		illuminate_pixel()
 // {
-	
 // }
+
+void	vertical_line(t_env *base)
+{
+	if (base->bresen.y2 < base->bresen.y1)
+	{
+		base->bresen.tmpy = base->bresen.y1;
+		base->bresen.y1 = base->bresen.y2;
+		base->bresen.y2 = base->bresen.tmpy;
+	}
+	base->bresen.y = base->bresen.y1;
+	while (base->bresen.y <= base->bresen.y2)
+	{
+		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x1, base->bresen.y, WHITE);
+		base->bresen.y++;
+	}
+}
 
 void		bresenham(t_env	*base)
 {
-	double y;
-	double x;
-	double vector;
-
-	y = base->bresen.y1;
-	x = base->bresen.x1;
-	vector = sqrt((pow(base->bresen.delta_x, 2)) + (pow(base->bresen.delta_y, 2)));
-	base->bresen.delta_x /= vector;
-	base->bresen.delta_y /= vector;
-	while (vector > 0)
+	if (!base->bresen.delta_x)
+		vertical_line(base);
+	else
 	{
-		mlx_pixel_put(base->mlx.mlx, base->mlx.win, x, y, vector);
-		x += base->bresen.delta_x;
-		y += base->bresen.delta_x;
-		vector -= 1;
+		base->bresen.slope = base->bresen.delta_y / base->bresen.delta_x;
+		base->bresen.adjust = (base->bresen.slope >= 0) ? 1 : -1;
+		base->bresen.offset = 0;
+		// if (-1 <= base->bresen.slope && base->bresen.slope <= 1)
+		// 	run_over_rise(base);
+		// else
+		// 	rise_over_run(base);
 	}
 }
 
 void		set_horizontal(t_env *base, int x, int y)
 {
-	base->bresen.x1 = base->pxlpt[y][x].x + base->bresen.center_x;
-	base->bresen.y1 = base->pxlpt[y][x].y + base->bresen.center_y;
-	base->bresen.x2 = base->pxlpt[y][x + 1].x + base->bresen.center_x;
-	base->bresen.y2 = base->pxlpt[y][x + 1].y + base->bresen.center_y;
+	base->bresen.x1 = base->pxlpt[y][x].x + 150;
+	base->bresen.y1 = base->pxlpt[y][x].y + 200;
+	base->bresen.x2 = base->pxlpt[y][x + 1].x + 150;
+	base->bresen.y2 = base->pxlpt[y][x + 1].y + 200;
 	base->bresen.delta_y = base->bresen.y2 - base->bresen.y1;
 	base->bresen.delta_x = base->bresen.x2 - base->bresen.x1;
 	bresenham(base);
@@ -51,10 +62,10 @@ void		set_horizontal(t_env *base, int x, int y)
 
 void		set_vertical(t_env *base, int x, int y)
 {
-	base->bresen.x1 = base->pxlpt[y][x].x + base->bresen.center_x;
-	base->bresen.y1 = base->pxlpt[y][x].y + base->bresen.center_y;
-	base->bresen.x2 = base->pxlpt[y + 1][x].x + base->bresen.center_x;
-	base->bresen.y2 = base->pxlpt[y + 1][x].y + base->bresen.center_y;
+	base->bresen.x1 = base->pxlpt[y][x].x + 150;
+	base->bresen.y1 = base->pxlpt[y][x].y + 200;
+	base->bresen.x2 = base->pxlpt[y + 1][x].x + 150;
+	base->bresen.y2 = base->pxlpt[y + 1][x].y + 200;
 	base->bresen.delta_y = base->bresen.y2 - base->bresen.y1;
 	base->bresen.delta_x = base->bresen.x2 - base->bresen.x1;
 	bresenham(base);

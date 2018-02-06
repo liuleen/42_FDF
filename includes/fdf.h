@@ -22,8 +22,8 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WIDTH 	(700)
-# define HEIGHT (700)
+# define WIDTH 	(1000)
+# define HEIGHT (1000)
 # define BLUE 0x0000ff
 # define RED 0xff0000
 # define YELLOW 0xffff00
@@ -57,6 +57,10 @@ typedef struct  	s_bresenham
 	double			slope;
 	double 			center_x;
 	double			center_y;
+
+	int 			tmpy;
+	int 			offset;
+	int 			adjust;
 }					t_bresenham;
 
 typedef struct 		s_rotatematrix

@@ -26,7 +26,8 @@ FLAGS			= -L $(LIBFT_DIR) -lft
 SRC_FILES 		= main.c \
 				  read_fdf.c \
 				  mlx.c \
-				  create_imgdata.c
+				  create_imgdata.c \
+				  fdf.c 
 
 SRC 			= $(addprefix $(SRC_DIR), $(SRC_FILES))
 LIBFT 			= $(LIBFT_DIR)/libft.a 
