@@ -41,21 +41,30 @@ typedef struct 		s_map
 	int				**z;
 	int				height;
 	int				width;
-	int 			y1;
-	int 			y2;
-	int 			x1;
-	int 			x2;
 	int 			pixel_gap;
 }					t_map;
 
 typedef struct  	s_bresenham
 {
+	int 			x;
+	int 			y;
+	int 			x1;
+	int 			x2;
+	int 			y1;
+	int 			y2;
 	double			delta_x;
 	double			delta_y;
 	double			slope;
-	int 			offset_x;
-	int 			offset_y;
+	double 			center_x;
+	double			center_y;
 }					t_bresenham;
+
+typedef struct 		s_rotatematrix
+{
+	int 			x;
+	int 			y;
+	int 			z;
+}					t_rotatematrix;
 
 //CARTESIAN POINTS
 typedef struct 		s_pxlpt
@@ -80,10 +89,13 @@ typedef struct 		s_env
 	t_mlx			mlx;
 	t_pxlpt			**pxlpt;
 	t_bresenham		bresen;
+	t_rotatematrix	rotate;
 }					t_env;
 
 t_pxlpt				**pxlpts(t_env *base);
+void				environment(t_env *base);
 void				mlx(t_env *base);
+void				fdf(t_env *base);
 int					read_fdf(t_env *base, int fd, char *line, char *argv);
 void				ft_error(char *str, int ret);
 int					create_fdf(t_env *base);

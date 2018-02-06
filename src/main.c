@@ -63,6 +63,7 @@ int				main(int argc, char **argv)
 		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
 		if (close(fd) < 0)
 			ft_error("You got a close error!!", 6);
+		//environment(base);
 		mlx(base);
 	}
 	else

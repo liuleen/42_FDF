@@ -17,10 +17,7 @@ int		reg_key_events(int keycode, t_env *base)
 	printf("key event %d\n", keycode); 
 	/*mlx_pixel_put(mlx, win, 300, 300, 0xFF00FF);*/
 	if (keycode == ESCAPE)
-	{
-		mlx_destroy_window(base->mlx.mlx, base->mlx.win);
-		exit(0);
-	}
+		exit(1);
 	// else if (keycode == UP)
 	// {
 
@@ -45,20 +42,20 @@ void		mlx(t_env *base)
 	 *	environment(base);	
 	 */
 
-	t_pxlpt		**cartpts;
+	t_pxlpt		**pxlpt;
 
 	base->mlx.mlx = mlx_init();
 	base->mlx.win = mlx_new_window(base->mlx.mlx, WIDTH, HEIGHT, "FDF");
 	//mlx_pixel_put(base->mlx.mlx, base->mlx.win, 350, 350, 0xff0000);
-	cartpts = pxlpts(base);
+	base->pxlpt = pxlpts(base);
 	//loop and plot all the points 
 	//transform theta --> radians (radians = degrees × π / 180°) --> key event
 				//M_PI == pi
 
-	//fdf_draw(base, cartpts);
+	//fdf(base);
 	mlx_key_hook(base->mlx.win, reg_key_events, base->mlx.mlx);
 	//create_fdf(base);
-	/*	mlx_hook(base->mlx.win, 2, 3, cool_key_events, base);
+	/*	mlx_key_hook(base->mlx.win, 2, 3, cool_key_events, base);
 	 *	mlx_loop_hook(base->mlx.mlx, create_fdf, base);
 	 * */
 	mlx_loop(base->mlx.mlx);

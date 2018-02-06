@@ -20,7 +20,7 @@ t_pxlpt		**pxlpts(t_env *base)
 
 
 	base->map.pixel_gap = base->map.width > base->map.height ? \
-		WIDTH / base->map.width : HEIGHT / base->map.height;
+		(WIDTH / base->map.width) * .75 : (HEIGHT / base->map.height) * .75;
 	cart_pts = (t_pxlpt **)malloc(sizeof(t_pxlpt *) * base->map.height);
 	l = -1;
 	while (++l < base->map.height)
@@ -47,15 +47,21 @@ t_pxlpt		**pxlpts(t_env *base)
 	return (cart_pts);
 }
 
-/* void		environment(t_env *base)
+ void		environment(t_env *base)
  {
  	base->map.height = 0;
  	base->map.width = 0;
- 	
+ 	base->map.z = NULL;
+
  	base->pxlpt = pxlpts(base);
- 	base->bresenham.offset_x = (WIDTH / 2) - base->map.width;
-	base->bresenham.offset_y = (HEIGHT / 2) - base->map.height;
-	base->map.pixel_gap = base->map.width > base->map.height ? \
-		WIDTH / base->map.width : HEIGHT / base->map.height;
+ // 	base->bresen.center_x = (WIDTH / 2) - base->map.width;
+	// base->bresen.center_y = (HEIGHT / 2) - base->map.height;
+	// base->map.pixel_gap = base->map.width > base->map.height ? \
+	// 	WIDTH / base->map.width : HEIGHT / base->map.height;
+	// base->rotate.x = 0;
+	// base->rotate.y = 0;
+	// base->rotate.z = 0;
+	base->bresen.center_x = WIDTH / 2;
+	base->bresen.center_y = HEIGHT / 2;
  }
- */
+ 
