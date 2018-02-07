@@ -15,18 +15,21 @@
 int		reg_key_events(int keycode, t_env *base)  
 {
 	printf("key event %d\n", keycode); 
-	/*mlx_pixel_put(mlx, win, 300, 300, 0xFF00FF);*/
+	
 	if (keycode == ESCAPE)
 		exit(1);
 	// else if (keycode == UP)
-	// {
-
-	// }
+	// 	base->bresen.degrees.x += 20;
 	// else if (keycode == DOWN)
+	// 	base->bresen.degrees.x -= 20;
 	// else if (keycode == LEFT)
+	// 	base->bresen.degrees.y -= 20;
 	// else if (keycode == RIGHT)
+	// 	base->bresen.degrees.y += 20;
 	// else if (keycode == ZOOMIN)
+	// 	base->bresen.degrees.z -= 20;
 	// else if (keycode == ZOOMOUT)
+	// 	base->bresen.degrees.z += 20;
 	return (0);
 }
 

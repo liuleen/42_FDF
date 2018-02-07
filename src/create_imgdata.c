@@ -37,12 +37,12 @@ t_pxlpt		**pxlpts(t_env *base)
 			cart_pts[l][r].x *= base->map.pixel_gap;
 			cart_pts[l][r].y *= base->map.pixel_gap;
 			if(base->map.z[l][r] > 0)
-				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x + 150, cart_pts[l][r].y + 200, WHITE);
+				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x + 150, cart_pts[l][r].y, CYAN);
 			else
-				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x + 150, cart_pts[l][r].y + 200, WHITE);
+				mlx_pixel_put(base->mlx.mlx, base->mlx.win, cart_pts[l][r].x + 150, cart_pts[l][r].y, RED);
 		}
 	}
-	//free t_pxlpt;
+	//free t_pxlpt; 
 	return (cart_pts);
 }
 

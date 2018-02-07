@@ -28,6 +28,8 @@
 # define RED 0xff0000
 # define YELLOW 0xffff00
 # define WHITE 0xffffff
+# define CYAN 0x00ffff
+# define GRAY 0xd3d3d3
 # define ESCAPE 53
 # define UP 126
 # define DOWN 125
@@ -54,13 +56,14 @@ typedef struct  	s_bresenham
 	int 			y2;
 	double			delta_x;
 	double			delta_y;
-	double			slope;
+	int   			delta;
+	int 			slope;
 	double 			center_x;
 	double			center_y;
 
-	int 			tmpy;
 	int 			offset;
 	int 			adjust;
+	float			threshold;
 }					t_bresenham;
 
 typedef struct 		s_rotatematrix
