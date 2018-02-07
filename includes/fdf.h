@@ -22,8 +22,8 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define WIDTH 	(1000)
-# define HEIGHT (1000)
+# define WIDTH 	(800)
+# define HEIGHT (600)
 # define BLUE 0x0000ff
 # define RED 0xff0000
 # define YELLOW 0xffff00
@@ -41,28 +41,28 @@
 typedef struct 		s_map
 {
 	int				**z;
-	int				height;
-	int				width;
-	int 			pixel_gap;
+	float			height;
+	float			width;
+	float 			pixel_gap;
 }					t_map;
 
 typedef struct  	s_bresenham
 {
-	int 			x;
-	int 			y;
-	int 			x1;
-	int 			x2;
-	int 			y1;
-	int 			y2;
+	float 			x;
+	float 			y;
+	float 			x1;
+	float 			x2;
+	float 			y1;
+	float 			y2;
 	double			delta_x;
 	double			delta_y;
-	int   			delta;
-	int 			slope;
-	double 			center_x;
-	double			center_y;
+	float   		delta;
+	float 			slope;
+	double 			mid_x;
+	double			mid_y;
 
-	int 			offset;
-	int 			adjust;
+	float 			offset;
+	float 			adjust;
 	float			threshold;
 }					t_bresenham;
 
@@ -102,7 +102,9 @@ typedef struct 		s_env
 t_pxlpt				**pxlpts(t_env *base);
 void				environment(t_env *base);
 void				mlx(t_env *base);
+void				rotate(t_env *base);
 void				fdf(t_env *base);
+void				translate_image(t_env *base);
 int					read_fdf(t_env *base, int fd, char *line, char *argv);
 void				ft_error(char *str, int ret);
 int					create_fdf(t_env *base);

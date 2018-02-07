@@ -50,6 +50,8 @@ void		mlx(t_env *base)
 	base->mlx.mlx = mlx_init();
 	base->mlx.win = mlx_new_window(base->mlx.mlx, WIDTH, HEIGHT, "FDF");
 	base->pxlpt = pxlpts(base);
+	rotate(base);
+	translate_image(base);
 	//loop and plot all the points 
 	//transform theta --> radians (radians = degrees × π / 180°) --> key event
 				//M_PI == pi

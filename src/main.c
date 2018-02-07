@@ -61,7 +61,7 @@ int				main(int argc, char **argv)
 			ft_error("Oh no, open error", 4);
 		if ((read_fdf(base, fd, line, argv[1])) != 1)
 			ft_error("Try again, read error", 5);
-		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
+		printf("struct values stored: map.height: %f\n map.width: %f\n", base->map.height, base->map.width);
 		if (close(fd) < 0)
 			ft_error("You got a close error!!", 6);
 		mlx(base);

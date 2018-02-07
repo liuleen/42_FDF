@@ -28,7 +28,8 @@ SRC_FILES 		= main.c \
 				  mlx.c \
 				  create_imgdata.c \
 				  fdf.c \
-				  get_next_line.c
+				  get_next_line.c \
+				  rotate.c 
 
 SRC 			= $(addprefix $(SRC_DIR), $(SRC_FILES))
 LIBFT 			= $(LIBFT_DIR)/libft.a 
