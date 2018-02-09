@@ -55,6 +55,7 @@ static int		col_height(t_env *base, int fd)
 
 	width = 0;
 	height = 0;
+	line = NULL;
 	while (get_next_line(fd, &line) == 1)
 	{
 		length = row_length(line);
@@ -79,13 +80,13 @@ int				read_fdf(t_env *base, int fd, char *line, char *argv)
 
 	y = 0;
 	base->map.height = col_height(base, fd);
-	if (!(base->map.z = (int **)malloc(sizeof(int *) * base->map.height)))
-		ft_error("2D array; Allocation error", 3);
 	if ((fd = open(argv, O_RDONLY)) < 1)
 		ft_error("This is the second open attempt, Open Error", 4);
+	if (!(base->map.z = (int **)malloc(sizeof(int *) * (base->map.height + 1))))
+		ft_error("2D array; Allocation error", 3);	
 	while ((y < base->map.height) && (get_next_line(fd, &line) == 1))
 	{
-		if (!(base->map.z[y] = (int *)malloc(sizeof(int) * base->map.width)))
+		if (!(base->map.z[y] = (int *)malloc(sizeof(int) * (base->map.width + 1))))
 			ft_error("Allocation error", 3);
 		x = 0;
 		i = 0;

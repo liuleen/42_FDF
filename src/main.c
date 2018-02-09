@@ -20,25 +20,23 @@ void			ft_error(char *str, int ret)
 
 static int		check_fdf(char *str)
 {
-	int		i;
-	int		j;
-	char	*fdf;
-
-	j = 0;
-	fdf = "fdf";
-	i = ft_strlen(str);
-	i--;
-	while (fdf[j])
-	{
-		if (str[i] == fdf[j])
-		{
-			i--;
-			j++;
-		}
-		else
-			return (0);
-	}
+	if (!(ft_strstr(str, ".fdf")))
+		ft_error("there's no .fdf, invalid file name", 2);
 	return (1);
+}
+
+int 			expose(t_env *base)
+{
+	static int i = 1;
+
+	if (i)
+	{
+		ft_putendl("HOLD UP REDRAWING");
+		mlx_clear_window(base->mlx.mlx, base->mlx.win);
+		fdf(base);
+	}
+	i--;
+	return (0);
 }
 
 int				main(int argc, char **argv)
@@ -59,9 +57,11 @@ int				main(int argc, char **argv)
 			ft_error("Oh no, open error", 4);
 		if ((read_fdf(base, fd, line, argv[1])) != 1)
 			ft_error("Try again, read error", 5);
-		printf("struct values stored: map.height: %f\n map.width: %f\n", base->map.height, base->map.width);
+		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
 		if (close(fd) < 0)
 			ft_error("You got a close error!!", 6);
+		printf("hello\n");
+		setup_env(base);
 		mlx(base);
 	}
 	else

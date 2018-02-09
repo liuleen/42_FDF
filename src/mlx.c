@@ -16,51 +16,66 @@ int		reg_key_events(int keycode, t_env *base)
 {
 	printf("key event %d\n", keycode); 
 	
-	if (keycode == ESCAPE)
-		exit(1);
-	// else if (keycode == UP)
-	// 	base->bresen.degrees.x += 20;
-	// else if (keycode == DOWN)
-	// 	base->bresen.degrees.x -= 20;
-	// else if (keycode == LEFT)
-	// 	base->bresen.degrees.y -= 20;
-	// else if (keycode == RIGHT)
-	// 	base->bresen.degrees.y += 20;
-	// else if (keycode == ZOOMIN)
-	// 	base->bresen.degrees.z -= 20;
-	// else if (keycode == ZOOMOUT)
-	// 	base->bresen.degrees.z += 20;
+	keycode == ESCAPE ? exit (1) : 0;
+	keycode == UP ? base->bresen.shift_y -= 50 : 0;
+	keycode == DOWN ? base->bresen.shift_y += 50 : 0;
+	keycode == LEFT ? base->bresen.shift_x -= 50 : 0;
+	keycode == RIGHT ? base->bresen.shift_x += 50 : 0;
+	keycode == ZOOMIN ? base->bresen.zoom += 10 : 0;
+	keycode == ZOOMIN ? base->bresen.zoom -= 10 : 0;
 	return (0);
 }
 
-// int 	cool_key_events(int keycode, t_env *env)
+void		user_message(t_env *base)
+{
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 5, YELLOW, "Arrows : Move");
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 10, YELLOW, "{+, -} : Zoom In/Out");
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 15, YELLOW, "{1, 2} : Rotate x");
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 20, YELLOW, "{3, 4} : Rotate y");
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 25, YELLOW, "{5, 6} : Rotate z");
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 30, YELLOW, "{space, delete} : Altitude");
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 35, YELLOW, "{space, delete} : Altitude");
+	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 40, YELLOW, "{return} : reset");
+}
+void		translate_image(t_env *base)
+{
+	int x;
+	int y;
+
+	y = -1;
+	while (++y < base->map.height)
+	{
+		x = -1;
+		while (++x < base->map.width)
+		{
+			base->pxlpt[y][x].y += HEIGHT / 2;
+			base->pxlpt[y][x].x += WIDTH / 2;
+		}
+	}
+}
+
+// int			color_image(t_env *base)
 // {
-// 	//color, isometric, 
+	
 // }
 
 void		mlx(t_env *base)
 {
-	/* int		x;
-	 * int		y;
-	 *	environment(base);	
-	 */
 
 	t_pxlpt		**pxlpt;
 
+	reset(base);
 	base->mlx.mlx = mlx_init();
 	base->mlx.win = mlx_new_window(base->mlx.mlx, WIDTH, HEIGHT, "FDF");
 	base->pxlpt = pxlpts(base);
 	rotate(base);
 	translate_image(base);
-	//loop and plot all the points 
-	//transform theta --> radians (radians = degrees × π / 180°) --> key event
-				//M_PI == pi
-
 	fdf(base);
-	mlx_key_hook(base->mlx.win, reg_key_events, base->mlx.mlx);
-	//create_fdf(base);
-	/*	mlx_key_hook(base->mlx.win, 2, 3, cool_key_events, base);
-	 *	mlx_loop_hook(base->mlx.mlx, create_fdf, base);
+	//user_message(base);
+	//mlx_key_hook(base->mlx.win, reg_key_events, base->mlx.mlx);
+	mlx_hook(base->mlx.win, 2, 3, reg_key_events, base);
+	 /*	mlx_loop_hook(base->mlx.mlx, create_fdf, base);
 	 * */
+	mlx_expose_hook(base->mlx.win, expose, base);
 	mlx_loop(base->mlx.mlx);
 }

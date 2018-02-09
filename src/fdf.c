@@ -11,16 +11,35 @@
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-//bresenham's algorithm
+//bresenham's algorithm 
 
-void		y_over_x(t_env *base, int x, int y)
+void		draw_straight(t_env *base)
 {
-	int 	tmpy;
+	float tmpy;
 
 	tmpy = 0;
-	base->bresen.delta = fabsf(base->bresen.slope);
+	if (base->bresen.y2 < base->bresen.y1)
+	{
+		tmpy = base->bresen.y1;
+		base->bresen.y1 = base->bresen.y2;
+		base->bresen.y2 = tmpy;
+	}
+	base->bresen.y = base->bresen.y1;
+	while (base->bresen.y <= base->bresen.y2)
+	{
+		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x1 + 
+			base->bresen.shift_x, base->bresen.y + base->bresen.shift_y, RED);
+		base->bresen.y++;
+	}
+}
+
+void		y_over_x(t_env *base)
+{
+	float 	tmpy;
+
+	tmpy = 0;
+	base->bresen.delta = fabsf(base->bresen.delta_x / base->bresen.delta_y);
 	base->bresen.x = base->bresen.x1;
-	base->bresen.threshold = 0.5;
 	if (base->bresen.y2 < base->bresen.y1)
 	{
 		tmpy = base->bresen.y1;
@@ -32,7 +51,8 @@ void		y_over_x(t_env *base, int x, int y)
 	while (base->bresen.y <= base->bresen.y2)
 	{
 		//base->bresen.color = color();
-		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x, base->bresen.y, BLUE);
+		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x + 
+			base->bresen.shift_x, base->bresen.y + base->bresen.shift_y, CYAN);
 		base->bresen.offset += base->bresen.delta;
 		if (base->bresen.offset >= base->bresen.threshold)
 		{
@@ -43,14 +63,13 @@ void		y_over_x(t_env *base, int x, int y)
 	}
 }
 
-void 		x_over_y(t_env *base, int x, int y)
+void 		x_over_y(t_env *base)
 {
-	int 	tmpx;
+	float 	tmpx;
 
 	tmpx = 0;
 	base->bresen.delta = fabsf(base->bresen.slope);
 	base->bresen.y = base->bresen.y1;
-	base->bresen.threshold = 0.5;
 	if (base->bresen.x2 < base->bresen.x1)
 	{
 		tmpx = base->bresen.x1;
@@ -62,7 +81,8 @@ void 		x_over_y(t_env *base, int x, int y)
 	while (base->bresen.x <= base->bresen.x2)
 	{
 		//base->bresen.color = color();
-		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x, base->bresen.y, BLUE);
+		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x + base->bresen.shift_x, 
+			base->bresen.y + base->bresen.shift_y, BLUE);
 		base->bresen.offset += base->bresen.delta;
 		if (base->bresen.offset >= base->bresen.threshold)
 		{
@@ -73,27 +93,25 @@ void 		x_over_y(t_env *base, int x, int y)
 	}
 }
 
-void		bresenham(t_env	*base, int x, int y)
+void		bresenham(t_env	*base)
 {
 	
 		base->bresen.slope = base->bresen.delta_y / base->bresen.delta_x;
 		base->bresen.offset = 0;
-		if(base->bresen.slope >= 0)
-			base->bresen.adjust = 1;
+		base->bresen.adjust = base->bresen.slope >= 0 ? 1 : -1;
+		base->bresen.threshold = 0.5;
+		if(base->bresen.delta_x == 0)
+			draw_straight(base); //straight line (slope is 0)
 		else
-			base->bresen.adjust = -1;
-
-		// if(base->bresen.delta_x == 0)
-		// 	draw_straight(base);
-		// else
-		//{
+		{
 			if (base->bresen.slope <= 1 && base->bresen.slope >= -1)
-				x_over_y(base, x, y);
+				x_over_y(base); //gradual diagonal
 			else
-				y_over_x(base, x, y);	
-		//}
+				y_over_x(base); //sharper incline...diagonal	
+		}
 }
 
+//setting up for bresenham slope draw
 void		set_horizontal(t_env *base, int x, int y)
 {
 	base->bresen.x1 = base->pxlpt[y][x].x;
@@ -102,9 +120,10 @@ void		set_horizontal(t_env *base, int x, int y)
 	base->bresen.y2 = base->pxlpt[y][x + 1].y;
 	base->bresen.delta_y = base->bresen.y2 - base->bresen.y1;
 	base->bresen.delta_x = base->bresen.x2 - base->bresen.x1;
-	bresenham(base, x, y);
+	bresenham(base);
 }
 
+//setting up for bresenham slope draw
 void		set_vertical(t_env *base, int x, int y)
 {
 	base->bresen.x1 = base->pxlpt[y][x].x;
@@ -113,9 +132,10 @@ void		set_vertical(t_env *base, int x, int y)
 	base->bresen.y2 = base->pxlpt[y + 1][x].y;
 	base->bresen.delta_y = base->bresen.y2 - base->bresen.y1;
 	base->bresen.delta_x = base->bresen.x2 - base->bresen.x1;
-	bresenham(base, x, y);
+	bresenham(base);
 }
 
+//go through every single point on the map to draw the grid/the diagonals/etc
 void			fdf(t_env *base)
 {
 	int 	y;

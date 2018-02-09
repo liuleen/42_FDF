@@ -36,15 +36,25 @@
 # define RIGHT 124
 # define LEFT 123
 # define ZOOMIN 24
-# define ZOOMOUT 23
+# define ZOOMOUT 27
+# define ROTATELEFT
+# define ROTATERIGHT
+# define ROTATEUP
+# define ROTATEDOWN
+# define ROTATEZL
+# define ROTATEZR
+# define OUT
+# define IN 
 
 typedef struct 		s_map
 {
 	int				**z;
-	float			height;
-	float			width;
+	int				height;
+	int				width;
 	float 			pixel_gap;
 }					t_map;
+
+//float x and float y are used as temps so origianls don't change
 
 typedef struct  	s_bresenham
 {
@@ -54,24 +64,31 @@ typedef struct  	s_bresenham
 	float 			x2;
 	float 			y1;
 	float 			y2;
-	double			delta_x;
-	double			delta_y;
+	float			delta_x;
+	float			delta_y;
 	float   		delta;
 	float 			slope;
-	double 			mid_x;
-	double			mid_y;
+	float 			mid_x;
+	float			mid_y;
 
 	float 			offset;
 	float 			adjust;
 	float			threshold;
+	float			zoom;
+	float 			angle_x;
+	float			angle_y;
+	float			angle_z;
+	float 			z;
+	float 			shift_x;
+	float 			shift_y;
 }					t_bresenham;
 
 //CARTESIAN POINTS
 typedef struct 		s_pxlpt
 {
-	double			x;
-	double			y;
-	double			z;
+	float			x;
+	float			y;
+	float			z;
 }					t_pxlpt;
 
 typedef struct		s_mlx
@@ -93,12 +110,15 @@ typedef struct 		s_env
 
 t_pxlpt				**pxlpts(t_env *base);
 void				environment(t_env *base);
+void				setup_env(t_env *base);
 void				mlx(t_env *base);
 void				rotate(t_env *base);
+int 				expose(t_env *base);
 void				fdf(t_env *base);
 void				translate_image(t_env *base);
 int					read_fdf(t_env *base, int fd, char *line, char *argv);
 void				ft_error(char *str, int ret);
+void 				reset(t_env *base);
 int					create_fdf(t_env *base);
 int					main(int argc, char **argv);
 int 				get_next_line(const int fd, char **line);
