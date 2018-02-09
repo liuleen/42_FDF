@@ -37,14 +37,15 @@
 # define LEFT 123
 # define ZOOMIN 24
 # define ZOOMOUT 27
-# define ROTATELEFT
-# define ROTATERIGHT
-# define ROTATEUP
-# define ROTATEDOWN
-# define ROTATEZL
-# define ROTATEZR
-# define OUT
-# define IN 
+# define TURNLEFT 18
+# define TURNRIGHT 19
+# define ROTATEUP 20
+# define ROTATEDOWN 21
+# define ROTATERIGHT 23
+# define ROTATELEFT 22
+# define OUT 49
+# define IN 51
+# define RESET 36
 
 typedef struct 		s_map
 {
@@ -81,6 +82,7 @@ typedef struct  	s_bresenham
 	float 			z;
 	float 			shift_x;
 	float 			shift_y;
+	float 			color;
 }					t_bresenham;
 
 //CARTESIAN POINTS
@@ -106,12 +108,16 @@ typedef struct 		s_env
 	t_mlx			mlx;
 	t_pxlpt			**pxlpt;
 	t_bresenham		bresen;
+	float 			tmpy;
+	float 			tmpx;
 }					t_env;
 
 t_pxlpt				**pxlpts(t_env *base);
 void				environment(t_env *base);
 void				setup_env(t_env *base);
 void				mlx(t_env *base);
+void				user_message(t_env *b);
+int 				color(t_env *b);
 void				rotate(t_env *base);
 int 				expose(t_env *base);
 void				fdf(t_env *base);

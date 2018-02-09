@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 22:18:03 by rliu              #+#    #+#             */
-/*   Updated: 2018/01/29 16:05:27 by rliu             ###   ########.fr       */
+/*   Updated: 2018/02/09 04:53:17 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ static int		check_fdf(char *str)
 	return (1);
 }
 
-int 			expose(t_env *base)
+int				expose(t_env *b)
 {
 	static int i = 1;
 
 	if (i)
 	{
 		ft_putendl("HOLD UP REDRAWING");
-		mlx_clear_window(base->mlx.mlx, base->mlx.win);
-		fdf(base);
+		mlx_clear_window(b->mlx.mlx, b->mlx.win);
+		fdf(b);
 	}
 	i--;
 	return (0);
@@ -41,28 +41,26 @@ int 			expose(t_env *base)
 
 int				main(int argc, char **argv)
 {
-	t_env	*base;
+	t_env	*b;
 	int		fd;
 	char	*line;
 
 	line = NULL;
-	if (!(base = (t_env *)malloc(sizeof(t_env))))
+	if (!(b = (t_env *)malloc(sizeof(t_env))))
 		ft_error("Allocation Error", 3);
 	if (argc == 2)
 	{
-		environment(base);
+		environment(b);
 		if (check_fdf(argv[1]) != 1)
 			ft_error("Oh no, you entered an invalid file", 4);
 		if ((fd = open(argv[1], O_RDONLY)) < 1)
 			ft_error("Oh no, open error", 4);
-		if ((read_fdf(base, fd, line, argv[1])) != 1)
+		if ((read_fdf(b, fd, line, argv[1])) != 1)
 			ft_error("Try again, read error", 5);
-		printf("struct values stored: map.height: %i\n map.width: %i\n", base->map.height, base->map.width);
 		if (close(fd) < 0)
 			ft_error("You got a close error!!", 6);
-		printf("hello\n");
-		setup_env(base);
-		mlx(base);
+		setup_env(b);
+		mlx(b);
 	}
 	else
 		write(1, "usage: ./fdf filename.fdf\n", 26);

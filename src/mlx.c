@@ -6,76 +6,71 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:41:42 by rliu              #+#    #+#             */
-/*   Updated: 2018/01/29 16:04:01 by rliu             ###   ########.fr       */
+/*   Updated: 2018/02/09 05:17:58 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int		reg_key_events(int keycode, t_env *base)  
+int				reg_key_events(int keycode, t_env *b)
 {
-	printf("key event %d\n", keycode); 
-	
-	keycode == ESCAPE ? exit (1) : 0;
-	keycode == UP ? base->bresen.shift_y -= 50 : 0;
-	keycode == DOWN ? base->bresen.shift_y += 50 : 0;
-	keycode == LEFT ? base->bresen.shift_x -= 50 : 0;
-	keycode == RIGHT ? base->bresen.shift_x += 50 : 0;
-	keycode == ZOOMIN ? base->bresen.zoom += 10 : 0;
-	keycode == ZOOMIN ? base->bresen.zoom -= 10 : 0;
+	printf("key event %d\n", keycode);
+	keycode == ESCAPE ? exit(1) : 0;
+	keycode == UP ? b->bresen.shift_y -= 50 : 0;
+	keycode == DOWN ? b->bresen.shift_y += 50 : 0;
+	keycode == LEFT ? b->bresen.shift_x -= 50 : 0;
+	keycode == RIGHT ? b->bresen.shift_x += 50 : 0;
+	keycode == ZOOMIN ? b->bresen.zoom += 10 : 0;
+	keycode == ZOOMIN ? b->bresen.zoom -= 10 : 0;
 	return (0);
 }
 
-void		user_message(t_env *base)
+void			user_message(t_env *b)
 {
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 5, YELLOW, "Arrows : Move");
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 10, YELLOW, "{+, -} : Zoom In/Out");
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 15, YELLOW, "{1, 2} : Rotate x");
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 20, YELLOW, "{3, 4} : Rotate y");
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 25, YELLOW, "{5, 6} : Rotate z");
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 30, YELLOW, "{space, delete} : Altitude");
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 35, YELLOW, "{space, delete} : Altitude");
-	mlx_string_put(base->mlx.mlx, base->mlx.win, 5, 40, YELLOW, "{return} : reset");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 0, YELLOW, "Arrows : Move");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 15, YELLOW, "{+, -} : Zoom");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 30, YELLOW, "{1, 2} : Rotate x");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 45, YELLOW, "{3, 4} : Rotate y");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 60, YELLOW, "{5, 6} : Rotate z");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 75, YELLOW, "{spce/dlt}: alt");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 90, YELLOW, "{return} : reset");
 }
-void		translate_image(t_env *base)
+
+void			translate_image(t_env *b)
 {
 	int x;
 	int y;
 
 	y = -1;
-	while (++y < base->map.height)
+	while (++y < b->map.height)
 	{
 		x = -1;
-		while (++x < base->map.width)
+		while (++x < b->map.width)
 		{
-			base->pxlpt[y][x].y += HEIGHT / 2;
-			base->pxlpt[y][x].x += WIDTH / 2;
+			b->pxlpt[y][x].y += HEIGHT / 2;
+			b->pxlpt[y][x].x += WIDTH / 2;
 		}
 	}
 }
 
-// int			color_image(t_env *base)
-// {
-	
-// }
-
-void		mlx(t_env *base)
+int				color(t_env *b)
 {
+	return (1);
+}
 
+void			mlx(t_env *b)
+{
 	t_pxlpt		**pxlpt;
 
-	reset(base);
-	base->mlx.mlx = mlx_init();
-	base->mlx.win = mlx_new_window(base->mlx.mlx, WIDTH, HEIGHT, "FDF");
-	base->pxlpt = pxlpts(base);
-	rotate(base);
-	translate_image(base);
-	fdf(base);
-	//user_message(base);
-	//mlx_key_hook(base->mlx.win, reg_key_events, base->mlx.mlx);
-	mlx_hook(base->mlx.win, 2, 3, reg_key_events, base);
-	 /*	mlx_loop_hook(base->mlx.mlx, create_fdf, base);
-	 * */
-	mlx_expose_hook(base->mlx.win, expose, base);
-	mlx_loop(base->mlx.mlx);
+	reset(b);
+	b->mlx.mlx = mlx_init();
+	b->mlx.win = mlx_new_window(b->mlx.mlx, WIDTH, HEIGHT, "FDF");
+	b->pxlpt = pxlpts(b);
+	rotate(b);
+	translate_image(b);
+	fdf(b);
+	mlx_hook(b->mlx.win, 2, 3, reg_key_events, b);
+	mlx_loop_hook(b->mlx.mlx, &fdf, b);
+	mlx_expose_hook(b->mlx.win, expose, b);
+	mlx_loop(b->mlx.mlx);
 }

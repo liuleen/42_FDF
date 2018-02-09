@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:52:03 by rliu              #+#    #+#             */
-/*   Updated: 2018/01/29 16:01:35 by rliu             ###   ########.fr       */
+/*   Updated: 2018/02/09 05:20:46 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int		row_length(char *str)
 ** Gets the number of rows in the file to store and use for map/2d array
 */
 
-static int		col_height(t_env *base, int fd)
+static int		col_height(t_env *b, int fd)
 {
 	int		length;
 	int		height;
@@ -66,39 +66,32 @@ static int		col_height(t_env *base, int fd)
 	}
 	if (close(fd) < 0)
 		ft_error("Close Error!!", 6);
-	base->map.width = width;
+	b->map.width = width;
 	return (height);
 }
 
-int				read_fdf(t_env *base, int fd, char *line, char *argv)
+int				read_fdf(t_env *b, int fd, char *line, char *argv)
 {
 	char	**array;
 	int		i;
 	int		x;
 	int		y;
-	int		value;
 
-	y = 0;
-	base->map.height = col_height(base, fd);
+	y = -1;
+	b->map.height = col_height(b, fd);
 	if ((fd = open(argv, O_RDONLY)) < 1)
 		ft_error("This is the second open attempt, Open Error", 4);
-	if (!(base->map.z = (int **)malloc(sizeof(int *) * (base->map.height + 1))))
-		ft_error("2D array; Allocation error", 3);	
-	while ((y < base->map.height) && (get_next_line(fd, &line) == 1))
+	if (!(b->map.z = (int **)malloc(sizeof(int *) * (b->map.height + 1))))
+		ft_error("2D array; Allocation error", 3);
+	while ((++y < b->map.height) && (get_next_line(fd, &line) == 1))
 	{
-		if (!(base->map.z[y] = (int *)malloc(sizeof(int) * (base->map.width + 1))))
+		if (!(b->map.z[y] = (int *)malloc(sizeof(int) * (b->map.width + 1))))
 			ft_error("Allocation error", 3);
-		x = 0;
+		x = -1;
 		i = 0;
 		array = ft_strsplit(line, ' ');
-		while ((x < base->map.width) && (array[i]))
-		{
-			value = ft_atoi(array[i++]);
-			base->map.z[y][x] = value;
-			printf("map.z[%i][%i]: %i\n", y, x, base->map.z[y][x]);
-			x++;
-		}
-		y++;
+		while ((++x < b->map.width) && (array[i]))
+			b->map.z[y][x] = ft_atoi(array[i++]);
 		free(line);
 		free(array);
 	}

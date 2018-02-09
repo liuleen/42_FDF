@@ -6,151 +6,141 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:41:24 by rliu              #+#    #+#             */
-/*   Updated: 2018/01/29 16:05:47 by rliu             ###   ########.fr       */
+/*   Updated: 2018/02/09 05:26:37 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-//bresenham's algorithm 
 
-void		draw_straight(t_env *base)
+void		draw_straight(t_env *b)
 {
 	float tmpy;
 
 	tmpy = 0;
-	if (base->bresen.y2 < base->bresen.y1)
+	if (b->bresen.y2 < b->bresen.y1)
 	{
-		tmpy = base->bresen.y1;
-		base->bresen.y1 = base->bresen.y2;
-		base->bresen.y2 = tmpy;
+		tmpy = b->bresen.y1;
+		b->bresen.y1 = b->bresen.y2;
+		b->bresen.y2 = tmpy;
 	}
-	base->bresen.y = base->bresen.y1;
-	while (base->bresen.y <= base->bresen.y2)
+	b->bresen.y = b->bresen.y1;
+	while (b->bresen.y <= b->bresen.y2)
 	{
-		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x1 + 
-			base->bresen.shift_x, base->bresen.y + base->bresen.shift_y, RED);
-		base->bresen.y++;
+		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x1 +
+			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, RED);
+		b->bresen.y++;
 	}
 }
 
-void		y_over_x(t_env *base)
+void		y_over_x(t_env *b)
 {
-	float 	tmpy;
-
-	tmpy = 0;
-	base->bresen.delta = fabsf(base->bresen.delta_x / base->bresen.delta_y);
-	base->bresen.x = base->bresen.x1;
-	if (base->bresen.y2 < base->bresen.y1)
+	b->bresen.delta = fabsf(b->bresen.delta_x / b->bresen.delta_y);
+	b->bresen.x = b->bresen.x1;
+	if (b->bresen.y2 < b->bresen.y1)
 	{
-		tmpy = base->bresen.y1;
-		base->bresen.y1 = base->bresen.y2;
-		base->bresen.y2 = tmpy;
-		base->bresen.x = base->bresen.x2;
+		b->tmpy = b->bresen.y1;
+		b->bresen.y1 = b->bresen.y2;
+		b->bresen.y2 = b->tmpy;
+		b->bresen.x = b->bresen.x2;
 	}
-	base->bresen.y = base->bresen.y1;
-	while (base->bresen.y <= base->bresen.y2)
+	b->bresen.y = b->bresen.y1;
+	while (b->bresen.y <= b->bresen.y2)
 	{
-		//base->bresen.color = color();
-		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x + 
-			base->bresen.shift_x, base->bresen.y + base->bresen.shift_y, CYAN);
-		base->bresen.offset += base->bresen.delta;
-		if (base->bresen.offset >= base->bresen.threshold)
+		b->bresen.color = color(b);
+		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x +
+			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, CYAN);
+		b->bresen.offset += b->bresen.delta;
+		if (b->bresen.offset >= b->bresen.threshold)
 		{
-			base->bresen.x += base->bresen.adjust;
-			base->bresen.threshold += 1;
+			b->bresen.x += b->bresen.adjust;
+			b->bresen.threshold += 1;
 		}
-		base->bresen.y++;
+		b->bresen.y++;
 	}
 }
 
-void 		x_over_y(t_env *base)
+void		x_over_y(t_env *b)
 {
-	float 	tmpx;
-
-	tmpx = 0;
-	base->bresen.delta = fabsf(base->bresen.slope);
-	base->bresen.y = base->bresen.y1;
-	if (base->bresen.x2 < base->bresen.x1)
+	b->bresen.delta = fabsf(b->bresen.slope);
+	b->bresen.y = b->bresen.y1;
+	if (b->bresen.x2 < b->bresen.x1)
 	{
-		tmpx = base->bresen.x1;
-		base->bresen.x1 = base->bresen.x2;
-		base->bresen.x2 = tmpx;
-		base->bresen.y = base->bresen.y2;
+		b->tmpx = b->bresen.x1;
+		b->bresen.x1 = b->bresen.x2;
+		b->bresen.x2 = b->tmpx;
+		b->bresen.y = b->bresen.y2;
 	}
-	base->bresen.x = base->bresen.x1;
-	while (base->bresen.x <= base->bresen.x2)
+	b->bresen.x = b->bresen.x1;
+	while (b->bresen.x <= b->bresen.x2)
 	{
-		//base->bresen.color = color();
-		mlx_pixel_put(base->mlx.mlx, base->mlx.win, base->bresen.x + base->bresen.shift_x, 
-			base->bresen.y + base->bresen.shift_y, BLUE);
-		base->bresen.offset += base->bresen.delta;
-		if (base->bresen.offset >= base->bresen.threshold)
+		b->bresen.color = color(b);
+		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x + b->bresen.shift_x,
+			b->bresen.y + b->bresen.shift_y, BLUE);
+		b->bresen.offset += b->bresen.delta;
+		if (b->bresen.offset >= b->bresen.threshold)
 		{
-			base->bresen.y += base->bresen.adjust;
-			base->bresen.threshold += 1;
+			b->bresen.y += b->bresen.adjust;
+			b->bresen.threshold += 1;
 		}
-		base->bresen.x++;
+		b->bresen.x++;
 	}
 }
 
-void		bresenham(t_env	*base)
+void		bresenham(t_env	*b)
 {
-	
-		base->bresen.slope = base->bresen.delta_y / base->bresen.delta_x;
-		base->bresen.offset = 0;
-		base->bresen.adjust = base->bresen.slope >= 0 ? 1 : -1;
-		base->bresen.threshold = 0.5;
-		if(base->bresen.delta_x == 0)
-			draw_straight(base); //straight line (slope is 0)
+	b->bresen.slope = b->bresen.delta_y / b->bresen.delta_x;
+	b->bresen.offset = 0;
+	b->bresen.adjust = b->bresen.slope >= 0 ? 1 : -1;
+	b->bresen.threshold = 0.5;
+	if (b->bresen.delta_x == 0)
+		draw_straight(b);
+	else
+	{
+		if (b->bresen.slope <= 1 && b->bresen.slope >= -1)
+			x_over_y(b);
 		else
-		{
-			if (base->bresen.slope <= 1 && base->bresen.slope >= -1)
-				x_over_y(base); //gradual diagonal
-			else
-				y_over_x(base); //sharper incline...diagonal	
-		}
+			y_over_x(b);
+	}
 }
 
-//setting up for bresenham slope draw
-void		set_horizontal(t_env *base, int x, int y)
+void		set_horizontal(t_env *b, int x, int y)
 {
-	base->bresen.x1 = base->pxlpt[y][x].x;
-	base->bresen.y1 = base->pxlpt[y][x].y;
-	base->bresen.x2 = base->pxlpt[y][x + 1].x;
-	base->bresen.y2 = base->pxlpt[y][x + 1].y;
-	base->bresen.delta_y = base->bresen.y2 - base->bresen.y1;
-	base->bresen.delta_x = base->bresen.x2 - base->bresen.x1;
-	bresenham(base);
+	b->bresen.x1 = b->pxlpt[y][x].x;
+	b->bresen.y1 = b->pxlpt[y][x].y;
+	b->bresen.x2 = b->pxlpt[y][x + 1].x;
+	b->bresen.y2 = b->pxlpt[y][x + 1].y;
+	b->bresen.delta_y = b->bresen.y2 - b->bresen.y1;
+	b->bresen.delta_x = b->bresen.x2 - b->bresen.x1;
+	bresenham(b);
 }
 
-//setting up for bresenham slope draw
-void		set_vertical(t_env *base, int x, int y)
+void		set_vertical(t_env *b, int x, int y)
 {
-	base->bresen.x1 = base->pxlpt[y][x].x;
-	base->bresen.y1 = base->pxlpt[y][x].y;
-	base->bresen.x2 = base->pxlpt[y + 1][x].x;
-	base->bresen.y2 = base->pxlpt[y + 1][x].y;
-	base->bresen.delta_y = base->bresen.y2 - base->bresen.y1;
-	base->bresen.delta_x = base->bresen.x2 - base->bresen.x1;
-	bresenham(base);
+	b->bresen.x1 = b->pxlpt[y][x].x;
+	b->bresen.y1 = b->pxlpt[y][x].y;
+	b->bresen.x2 = b->pxlpt[y + 1][x].x;
+	b->bresen.y2 = b->pxlpt[y + 1][x].y;
+	b->bresen.delta_y = b->bresen.y2 - b->bresen.y1;
+	b->bresen.delta_x = b->bresen.x2 - b->bresen.x1;
+	bresenham(b);
 }
 
-//go through every single point on the map to draw the grid/the diagonals/etc
-void			fdf(t_env *base)
+void		fdf(t_env *b)
 {
-	int 	y;
-	int 	x;
+	int	y;
+	int	x;
 
 	y = -1;
-	while (++y < base->map.height)
+	while (++y < b->map.height)
 	{
 		x = -1;
-		while (++x < base->map.width)
+		while (++x < b->map.width)
 		{
-			if (x + 1 < base->map.width)
-				set_horizontal(base, x, y);
-			if (y + 1 < base->map.height)
-				set_vertical(base, x, y);			
+			if (x + 1 < b->map.width)
+				set_horizontal(b, x, y);
+			if (y + 1 < b->map.height)
+				set_vertical(b, x, y);
 		}
 	}
+	user_message(b);
 }
