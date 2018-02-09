@@ -20,12 +20,15 @@ void		 rotate_zaxis(t_env *base)
 		}
 	}
 }
+//transform theta --> radians (radians = degrees × π / 180°) --> key event
+//M_PI == pi
 
 void		rotate_xaxis(t_env *base)
 {
 	int i;
 	int j;
 	int tmpy;
+	int tmpz;
 
 	i = -1;
 	while (++i < base->map.height)
@@ -34,7 +37,9 @@ void		rotate_xaxis(t_env *base)
 		while (++j < base->map.width)
 		{
 			tmpy = base->pxlpt[i][j].y;
-			base->pxlpt[i][j].y = tmpy * cos(0.933038) - base->pxlpt[i][j].z * 5 * sin(0.933038);
+			tmpz = base->pxlpt[i][j].z;
+			base->pxlpt[i][j].y = tmpy * cos(0.933038) - tmpz * 5 * sin(0.933038);
+			base->pxlpt[i][j].z = tmpz * sin(0.933038) + tmpz * cos(0.933038);
 		}
 	}
 }

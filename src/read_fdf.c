@@ -77,7 +77,6 @@ int				read_fdf(t_env *base, int fd, char *line, char *argv)
 	int		y;
 	int		value;
 
-	i = 0;
 	y = 0;
 	base->map.height = col_height(base, fd);
 	if (!(base->map.z = (int **)malloc(sizeof(int *) * base->map.height)))

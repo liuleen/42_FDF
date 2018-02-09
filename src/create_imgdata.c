@@ -31,8 +31,8 @@ t_pxlpt		**pxlpts(t_env *base)
 		r = -1;
 		while (++r < base->map.width)
 		{
-			cart_pts[l][r].y = (l - (base->map.height / 2)) * base->map.pixel_gap; //multiply by rotational matrix
-			cart_pts[l][r].x = (r - (base->map.width / 2)) * base->map.pixel_gap; //multiply by roational matrix
+			cart_pts[l][r].y = (l - (base->map.height / 2)) * base->map.pixel_gap;
+			cart_pts[l][r].x = (r - (base->map.width / 2)) * base->map.pixel_gap;
 			cart_pts[l][r].z = base->map.z[l][r];
 			printf("The x plot points are: %f\n", cart_pts[l][r].x);
 			printf("The y plot points are: %f\n", cart_pts[l][r].y);
@@ -60,12 +60,17 @@ void		translate_image(t_env *base)
 	}
 }
 
+int			color_image(t_env *base)
+{
+	
+}
+
 void		environment(t_env *base)
  {
  	base->map.height = 0;
  	base->map.width = 0;
  	base->map.z = NULL;
-
+ 	base->map.pixel_gap = 0;
 	// base->rotate.x = 0;
 	// base->rotate.y = 0;
 	// base->rotate.z = 0;

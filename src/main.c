@@ -24,11 +24,9 @@ static int		check_fdf(char *str)
 	int		j;
 	char	*fdf;
 
-	i = 0;
 	j = 0;
 	fdf = "fdf";
-	while (str[i])
-		i++;
+	i = ft_strlen(str);
 	i--;
 	while (fdf[j])
 	{

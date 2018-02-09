@@ -66,13 +66,6 @@ typedef struct  	s_bresenham
 	float			threshold;
 }					t_bresenham;
 
-typedef struct 		s_rotatematrix
-{
-	int 			x;
-	int 			y;
-	int 			z;
-}					t_rotatematrix;
-
 //CARTESIAN POINTS
 typedef struct 		s_pxlpt
 {
@@ -96,7 +89,6 @@ typedef struct 		s_env
 	t_mlx			mlx;
 	t_pxlpt			**pxlpt;
 	t_bresenham		bresen;
-	t_rotatematrix	rotate;
 }					t_env;
 
 t_pxlpt				**pxlpts(t_env *base);
