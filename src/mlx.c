@@ -22,6 +22,15 @@ int				reg_key_events(int keycode, t_env *b)
 	keycode == RIGHT ? b->bresen.shift_x += 50 : 0;
 	keycode == ZOOMIN ? b->bresen.zoom += 10 : 0;
 	keycode == ZOOMIN ? b->bresen.zoom -= 10 : 0;
+	// keycode == TURNLEFT ? 
+	// keycode == TURNRIGHT ?
+	// keycode == ROTATERIGHT ? 
+	// keycode == ROTATELEFT ? 
+	// keycode == ROTATEUP ?
+	// keycode == ROTATEDOWN ?
+	// keycode == OUT ?
+	// keycode == IN ?
+	// keycode == RESET ?      
 	return (0);
 }
 
@@ -55,6 +64,29 @@ void			translate_image(t_env *b)
 
 int				color(t_env *b)
 {
+	int x;
+	int y;
+
+	y = -1;
+	while (++y < b->map.height)
+	{
+		x = -1;
+		while (++x < b->map.width)
+		{
+			if (b->map.z[y][x] == b->map.z[y][x + 1])
+				return (RED);
+			else if (b->map.z[y][x] > b->map.z[y][x + 1])
+				return (BLUE);
+			else if (b->map.z[y][x] < b->map.z[y][x + 1])
+				return (WHITE);
+			else if (b->map.z[y][x] == b->map.z[y +  1][x])
+				return (CYAN);
+			else if (b->map.z[y][x] > b->map.z[y + 1][x])
+				return (YELLOW);
+			else if (b->map.z[y][x] < b->map.z[y + 1][x])
+				return (GRAY);
+		}
+	}
 	return (1);
 }
 

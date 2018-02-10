@@ -12,7 +12,7 @@
 
 #include "../includes/fdf.h"
 
-void		draw_straight(t_env *b)
+void		straight(t_env *b)
 {
 	float tmpy;
 
@@ -27,7 +27,7 @@ void		draw_straight(t_env *b)
 	while (b->bresen.y <= b->bresen.y2)
 	{
 		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x1 +
-			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, RED);
+			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, b->bresen.color);
 		b->bresen.y++;
 	}
 }
@@ -48,7 +48,7 @@ void		y_over_x(t_env *b)
 	{
 		b->bresen.color = color(b);
 		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x +
-			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, CYAN);
+			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, b->bresen.color);
 		b->bresen.offset += b->bresen.delta;
 		if (b->bresen.offset >= b->bresen.threshold)
 		{
@@ -75,7 +75,7 @@ void		x_over_y(t_env *b)
 	{
 		b->bresen.color = color(b);
 		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x + b->bresen.shift_x,
-			b->bresen.y + b->bresen.shift_y, BLUE);
+			b->bresen.y + b->bresen.shift_y, b->bresen.color);
 		b->bresen.offset += b->bresen.delta;
 		if (b->bresen.offset >= b->bresen.threshold)
 		{
@@ -93,7 +93,7 @@ void		bresenham(t_env	*b)
 	b->bresen.adjust = b->bresen.slope >= 0 ? 1 : -1;
 	b->bresen.threshold = 0.5;
 	if (b->bresen.delta_x == 0)
-		draw_straight(b);
+		straight(b);
 	else
 	{
 		if (b->bresen.slope <= 1 && b->bresen.slope >= -1)
