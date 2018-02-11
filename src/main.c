@@ -59,7 +59,7 @@ int				main(int argc, char **argv)
 			ft_error("Try again, read error", 5);
 		if (close(fd) < 0)
 			ft_error("You got a close error!!", 6);
-		setup_env(b);
+		window(b);
 		mlx(b);
 	}
 	else

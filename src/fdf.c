@@ -46,7 +46,6 @@ void		y_over_x(t_env *b)
 	b->bresen.y = b->bresen.y1;
 	while (b->bresen.y <= b->bresen.y2)
 	{
-		b->bresen.color = color(b);
 		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x +
 			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, b->bresen.color);
 		b->bresen.offset += b->bresen.delta;
@@ -73,7 +72,6 @@ void		x_over_y(t_env *b)
 	b->bresen.x = b->bresen.x1;
 	while (b->bresen.x <= b->bresen.x2)
 	{
-		b->bresen.color = color(b);
 		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x + b->bresen.shift_x,
 			b->bresen.y + b->bresen.shift_y, b->bresen.color);
 		b->bresen.offset += b->bresen.delta;
@@ -137,9 +135,15 @@ void		fdf(t_env *b)
 		while (++x < b->map.width)
 		{
 			if (x + 1 < b->map.width)
+			{
+				color(b, x, y);
 				set_horizontal(b, x, y);
+			}
 			if (y + 1 < b->map.height)
+			{
+				color(b, x, y);
 				set_vertical(b, x, y);
+			}
 		}
 	}
 	user_message(b);

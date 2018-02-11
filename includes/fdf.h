@@ -46,6 +46,7 @@
 # define OUT 49
 # define IN 51
 # define RESET 36
+# define COLOR 0
 
 typedef struct 		s_map
 {
@@ -69,8 +70,6 @@ typedef struct  	s_bresenham
 	float			delta_y;
 	float   		delta;
 	float 			slope;
-	float 			mid_x;
-	float			mid_y;
 
 	float 			offset;
 	float 			adjust;
@@ -114,13 +113,14 @@ typedef struct 		s_env
 
 t_pxlpt				**pxlpts(t_env *base);
 void				environment(t_env *base);
-void				setup_env(t_env *base);
 void				mlx(t_env *base);
 void				user_message(t_env *b);
-int 				color(t_env *b);
+void				reset(t_env *b);
+void 				color(t_env *b, int x, int y);
 void				rotate(t_env *base);
 int 				expose(t_env *base);
 void				fdf(t_env *base);
+void				window(t_env *b);
 void				translate_image(t_env *base);
 int					read_fdf(t_env *base, int fd, char *line, char *argv);
 void				ft_error(char *str, int ret);

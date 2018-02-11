@@ -30,32 +30,23 @@ t_pxlpt		**pxlpts(t_env *b)
 		r = -1;
 		while (++r < b->map.width)
 		{
-			cart_pts[l][r].y = (l - (b->bresen.mid_y)) * b->map.pixel_gap;
-				/*(b->bresen.zoom < 0 ? 5 : b->bresen.zoom);*/
-			cart_pts[l][r].x = (r - (b->bresen.mid_x)) * b->map.pixel_gap;
-				/*(b->bresen.zoom < 0 ? 5 : b->bresen.zoom);*/
-			cart_pts[l][r].z = b->map.z[l][r];
+			cart_pts[l][r].y = (l - (b->map.height / 2)) * b->map.pixel_gap
+				* (b->bresen.zoom < 0 ? 0 : b->bresen.zoom);
+			cart_pts[l][r].x = (r - (b->map.width / 2)) * b->map.pixel_gap
+				* (b->bresen.zoom < 0 ? 0 : b->bresen.zoom);
+			cart_pts[l][r].z = b->map.z[l][r] * b->bresen.z
+				* (b->bresen.zoom < 0 ? 0 : b->bresen.zoom);
 		}
 	}
 	/*free t_pxlpt;*/
 	return (cart_pts);
 }
 
-void		setup_env(t_env *b)
-{
-	b->bresen.mid_x = b->map.width / 2;
-	b->bresen.mid_y = b->map.height / 2;
-	b->map.pixel_gap = b->map.width > b->map.height ? \
-		((WIDTH / 2) / b->map.width) : ((HEIGHT / 2) / b->map.height);
-	b->bresen.z = 75;
-}
-
 void		reset(t_env *b)
 {
-	b->bresen.angle_x = 0.42;
-	b->bresen.angle_y = 0.42;
-	b->bresen.angle_z = 0.42;
-	b->bresen.zoom = 0;
+	b->bresen.angle_x = 0;
+	b->bresen.angle_y = 0;
+	b->bresen.angle_z = 0;
 	b->bresen.z = 100;
 	b->bresen.shift_x = 0;
 	b->bresen.shift_y = 0;
@@ -63,12 +54,10 @@ void		reset(t_env *b)
 
 void		environment(t_env *b)
 {
+	b->bresen.z = 5;
 	b->map.height = 0;
 	b->map.width = 0;
-	b->map.z = NULL;
 	b->map.pixel_gap = 0;
-	b->bresen.mid_x = 0;
-	b->bresen.mid_y = 0;
 	b->bresen.x1 = 0;
 	b->bresen.x2 = 0;
 	b->bresen.y1 = 0;
@@ -76,4 +65,7 @@ void		environment(t_env *b)
 	b->bresen.delta = 0;
 	b->bresen.slope = 0;
 	b->map.pixel_gap = 0;
+	b->bresen.zoom = 0;
+	b->bresen.shift_x = 0;
+	b->bresen.shift_y = 0;
 }
