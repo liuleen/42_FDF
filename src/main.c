@@ -25,6 +25,22 @@ static int		check_fdf(char *str)
 	return (1);
 }
 
+void			user_message(t_env *b)
+{
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 0, YELLOW, "Arrows : Move");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 15, YELLOW,
+		"{+, -} : Zoom Out/In");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 30, YELLOW,
+		"{1, 2} : Turn Left/Right");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 45, YELLOW,
+		"{3, 4} : Rotate Up/Down");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 60, YELLOW,
+		"{5, 6} : Rotate Right/Left");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 75, YELLOW,
+		"{spce/dlt}: Change Altitude");
+	mlx_string_put(b->mlx.mlx, b->mlx.win, 5, 90, YELLOW, "{return} : reset");
+}
+
 int				expose(t_env *b)
 {
 	static int i = 1;

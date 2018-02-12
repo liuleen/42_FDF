@@ -38,7 +38,6 @@ t_pxlpt		**pxlpts(t_env *b)
 				* (b->bresen.zoom < 0 ? 0 : b->bresen.zoom);
 		}
 	}
-	/*free t_pxlpt;*/
 	return (cart_pts);
 }
 
@@ -47,14 +46,14 @@ void		reset(t_env *b)
 	b->bresen.angle_x = 0;
 	b->bresen.angle_y = 0;
 	b->bresen.angle_z = 0;
-	b->bresen.z = 100;
+	b->bresen.z = .5;
 	b->bresen.shift_x = 0;
 	b->bresen.shift_y = 0;
 }
 
 void		environment(t_env *b)
 {
-	b->bresen.z = 5;
+	b->bresen.z = .5;
 	b->map.height = 0;
 	b->map.width = 0;
 	b->map.pixel_gap = 0;

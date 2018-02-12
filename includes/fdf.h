@@ -27,9 +27,8 @@
 # define BLUE 0x0000ff
 # define RED 0xff0000
 # define YELLOW 0xffff00
-# define WHITE 0xffffff
+# define MAROON 0x800000
 # define CYAN 0x00ffff
-# define GRAY 0xd3d3d3
 # define ESCAPE 53
 # define UP 126
 # define DOWN 125
@@ -55,8 +54,6 @@ typedef struct 		s_map
 	int				width;
 	float 			pixel_gap;
 }					t_map;
-
-//float x and float y are used as temps so origianls don't change
 
 typedef struct  	s_bresenham
 {
@@ -84,7 +81,6 @@ typedef struct  	s_bresenham
 	float 			color;
 }					t_bresenham;
 
-//CARTESIAN POINTS
 typedef struct 		s_pxlpt
 {
 	float			x;
@@ -113,6 +109,9 @@ typedef struct 		s_env
 
 t_pxlpt				**pxlpts(t_env *base);
 void				environment(t_env *base);
+void				set_vertical(t_env *b, int x, int y);
+void				set_horizontal(t_env *b, int x, int y);
+void				bresenham(t_env *b);
 void				mlx(t_env *base);
 void				user_message(t_env *b);
 void				reset(t_env *b);

@@ -27,7 +27,8 @@ void		straight(t_env *b)
 	while (b->bresen.y <= b->bresen.y2)
 	{
 		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x1 +
-			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, b->bresen.color);
+			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y,
+			b->bresen.color);
 		b->bresen.y++;
 	}
 }
@@ -47,7 +48,8 @@ void		y_over_x(t_env *b)
 	while (b->bresen.y <= b->bresen.y2)
 	{
 		mlx_pixel_put(b->mlx.mlx, b->mlx.win, b->bresen.x +
-			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y, b->bresen.color);
+			b->bresen.shift_x, b->bresen.y + b->bresen.shift_y,
+			b->bresen.color);
 		b->bresen.offset += b->bresen.delta;
 		if (b->bresen.offset >= b->bresen.threshold)
 		{
@@ -84,7 +86,7 @@ void		x_over_y(t_env *b)
 	}
 }
 
-void		bresenham(t_env	*b)
+void		bresenham(t_env *b)
 {
 	b->bresen.slope = b->bresen.delta_y / b->bresen.delta_x;
 	b->bresen.offset = 0;
@@ -99,28 +101,6 @@ void		bresenham(t_env	*b)
 		else
 			y_over_x(b);
 	}
-}
-
-void		set_horizontal(t_env *b, int x, int y)
-{
-	b->bresen.x1 = b->pxlpt[y][x].x;
-	b->bresen.y1 = b->pxlpt[y][x].y;
-	b->bresen.x2 = b->pxlpt[y][x + 1].x;
-	b->bresen.y2 = b->pxlpt[y][x + 1].y;
-	b->bresen.delta_y = b->bresen.y2 - b->bresen.y1;
-	b->bresen.delta_x = b->bresen.x2 - b->bresen.x1;
-	bresenham(b);
-}
-
-void		set_vertical(t_env *b, int x, int y)
-{
-	b->bresen.x1 = b->pxlpt[y][x].x;
-	b->bresen.y1 = b->pxlpt[y][x].y;
-	b->bresen.x2 = b->pxlpt[y + 1][x].x;
-	b->bresen.y2 = b->pxlpt[y + 1][x].y;
-	b->bresen.delta_y = b->bresen.y2 - b->bresen.y1;
-	b->bresen.delta_x = b->bresen.x2 - b->bresen.x1;
-	bresenham(b);
 }
 
 void		fdf(t_env *b)

@@ -27,15 +27,13 @@ void		rotate_zaxis(t_env *b)
 		{
 			tmpx = b->pxlpt[i][j].x;
 			tmpy = b->pxlpt[i][j].y;
-			b->pxlpt[i][j].x =  tmpx * cos(b->bresen.angle_z) - tmpy *
+			b->pxlpt[i][j].x = tmpx * cos(b->bresen.angle_z) - tmpy *
 				sin(b->bresen.angle_z);
 			b->pxlpt[i][j].y = tmpx * sin(b->bresen.angle_z) + tmpy *
 				cos(b->bresen.angle_z);
 		}
 	}
 }
-//transform theta --> radians (radians = degrees × π / 180°) --> key event
-//M_PI == pi
 
 void		rotate_yaxis(t_env *b)
 {
@@ -59,6 +57,7 @@ void		rotate_yaxis(t_env *b)
 		}
 	}
 }
+
 void		rotate_xaxis(t_env *b)
 {
 	int		i;
