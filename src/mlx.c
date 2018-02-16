@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:41:42 by rliu              #+#    #+#             */
-/*   Updated: 2018/02/09 05:17:58 by rliu             ###   ########.fr       */
+/*   Updated: 2018/02/16 15:44:53 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void			color(t_env *b, int x, int y)
 
 void			mlx(t_env *b)
 {
-	t_pxlpt		**pxlpt;
-
 	b->map.pixel_gap = b->map.width > b->map.height ? \
 		((WIDTH / 2) / b->map.width) : ((HEIGHT / 2) / b->map.height);
 	b->pxlpt = pxlpts(b);
